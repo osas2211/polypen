@@ -3,8 +3,16 @@
 import { ShimmerButton } from "@/components/magicui/shimmer-button"
 import { ShinyButton } from "@/components/magicui/shiny-button"
 
-const images_1 = ["/landing/developer.avif", "/landing/poet.avif"]
-const images_2 = ["/landing/student.avif", "/landing/writer.avif"]
+const images_1 = [
+  "/landing/developer.avif",
+  "/landing/poet.avif",
+  "/landing/teacher.avif",
+]
+const images_2 = [
+  "/landing/student.avif",
+  "/landing/writer.avif",
+  "/landing/student.avif",
+]
 
 export default function Home() {
   return (
@@ -12,10 +20,12 @@ export default function Home() {
       <div className="md:grid md:grid-cols-2 gap-4 font-sans md:w-[90%] mx-auto px-4">
         <div className="flex flex-col items-center justify-center md:h-screen">
           <div className="md:py-[4rem] py-2">
-            <p className="px-4 md:px-4 py-2 bg-gray-100 inline-block rounded-full font-medium text-purple-600">
+            <p className="px-4 md:px-4 py-2 bg-gray-100 inline-block rounded-full font-medium text-lime-600">
               #CustomHack
             </p>
-            <h3 className="md:text-9xl font-semibold">PolyPen</h3>
+            <h3 className="md:text-9xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-black to-lime-500">
+              PolyPen
+            </h3>
             <div className="md:mt-[5rem] md:mb-[2.5rem] md:max-w-[70%]">
               <p className="text-2xl mb-3 md:mb-3 font-medium">
                 Real-Time Multilingual Collaborative Writing that translats both
@@ -47,19 +57,19 @@ export default function Home() {
                 <div key={index}>
                   <img
                     src={image}
-                    className="h-[60vh] w-full object-cover object-top"
+                    className="h-[55vh] w-full object-cover object-top"
                   />
                 </div>
               )
             })}
           </div>
-          <div className="space-y-5  -mt-[10rem]">
+          <div className="space-y-5  -mt-[25.5vh]">
             {images_1.map((image, index) => {
               return (
                 <div key={index}>
                   <img
                     src={image}
-                    className="h-[60vh] w-full object-cover object-top"
+                    className="h-[55vh] w-full object-cover object-top"
                   />
                 </div>
               )
