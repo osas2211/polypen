@@ -51,10 +51,10 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-2 gap-5 relative ">
-          <div className="space-y-5">
+          <div className="space-y-5 w-full">
             {images_2.map((image, index) => {
               return (
-                <div key={index}>
+                <div key={index} className="w-full">
                   <img
                     src={image}
                     className="h-[55vh] w-full object-cover object-top"
@@ -66,7 +66,7 @@ export default function Home() {
           <div className="space-y-5  -mt-[25.5vh]">
             {images_1.map((image, index) => {
               return (
-                <div key={index}>
+                <div key={index} className="w-full">
                   <img
                     src={image}
                     className="h-[55vh] w-full object-cover object-top"
