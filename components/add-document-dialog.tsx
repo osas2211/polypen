@@ -38,6 +38,8 @@ import {
   Plus,
 } from "lucide-react"
 import { toast } from "sonner"
+import { supabase } from "@/utils/supabase"
+import { useRouter } from "next/navigation"
 
 const documentTypes = [
   { value: "article", label: "Article", icon: BookOpen },
@@ -88,6 +90,7 @@ export default function AddDocumentDialog({
   setOpen,
   onDocumentCreated,
 }: AddDocumentDialogProps) {
+  const router = useRouter()
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -99,14 +102,19 @@ export default function AddDocumentDialog({
 
   const onSubmit = async (data: FormData) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
       const newDocument = {
         ...data,
         id: Date.now().toString(),
         createdAt: new Date(),
       }
+      const { data: response, error } = await supabase
+        .from("documents")
+        .insert([{ ...data, author_email: localStorage.getItem("email") }])
+        .select()
+      if (error) {
+        throw new Error()
+      }
+      console.log(response)
 
       // Call the callback if provided
       onDocumentCreated?.(newDocument)
@@ -118,6 +126,7 @@ export default function AddDocumentDialog({
       // Reset form and close dialog
       form.reset()
       setOpen(false)
+      router.push(`/document/${response[0]?.id}`)
     } catch (error) {
       toast.error("Error", {
         description: "Failed to create document. Please try again.",

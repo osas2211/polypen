@@ -22,7 +22,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { User, Briefcase } from "lucide-react"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { User, Briefcase, Globe } from "lucide-react"
+import { languages } from "@/utils/languages"
+import { supabase } from "@/utils/supabase"
 import { useRouter } from "next/navigation"
 
 const roles = [
@@ -42,12 +45,19 @@ const formSchema = z.object({
     .regex(/^[a-zA-Z\s]+$/, {
       message: "Name can only contain letters and spaces",
     }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+
   role: z.enum(
     ["developer", "poet", "blogger", "musician", "writer", "product-manager"],
     {
       required_error: "Please select a role",
     }
   ),
+  language: z
+    .string({
+      required_error: "Please select a language",
+    })
+    .min(1, { message: "Please select a language" }),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -58,97 +68,180 @@ export default function OnboardingForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      language: "",
     },
   })
 
-  function onSubmit(data: FormData) {
-    toast.success("Welcome aboard!", {
-      description: `Hello ${data.name}! We're excited to have you as a ${
-        roles.find((r) => r.value === data.role)?.label
-      }.`,
-    })
-    router.push("/dashboard")
+  async function onSubmit(data: FormData) {
+    try {
+      const selectedLanguage = languages.find(
+        (lang) => lang.code === data.language
+      )
 
-    // Here you would typically send the data to your backend
-    // console.log("Form submitted:", data)
+      const { error } = await supabase
+        .from("users")
+        .insert([{ ...data }])
+        .select()
+      if (error) {
+        throw new Error()
+      }
+      toast.success("Welcome aboard!", {
+        description: `Hello ${data.name}! We're excited to have you as a ${
+          roles.find((r) => r.value === data.role)?.label
+        } who speaks ${selectedLanguage?.name}.`,
+      })
+      await supabase.auth.signInAnonymously()
+      router.replace("/dashboard")
+    } catch (error) {
+      toast.error("Error", {
+        description: "Failed to onboard. Please try again.",
+      })
+    }
   }
 
   return (
-    <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="text-center pb-4">
-        <div className="mx-auto w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-1">
-          <User className="w-6 h-6 text-slate-600" />
-        </div>
-        <p>test@gmail.com</p>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-700 font-medium">
-                    What's your name?
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your full name"
-                      className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-700 font-medium">
-                    What's your role?
-                  </FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+        <CardHeader className="text-center pb-4">
+          <div className="mx-auto w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+            <User className="w-6 h-6 text-slate-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Welcome!</h1>
+          <p className="text-slate-600">
+            Let's get you set up with a few quick details
+          </p>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-700 font-medium">
+                      Email address?
+                    </FormLabel>
                     <FormControl>
-                      <SelectTrigger className="!h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400 w-full">
-                        <div className="flex items-center gap-2">
-                          <Briefcase className="w-4 h-4 text-slate-500" />
-                          <SelectValue placeholder="Select your role" />
-                        </div>
-                      </SelectTrigger>
+                      <Input
+                        placeholder="Enter your email address"
+                        className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
+                        {...field}
+                      />
                     </FormControl>
-                    <SelectContent>
-                      {roles.map((role) => (
-                        <SelectItem key={role.value} value={role.value}>
-                          {role.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-700 font-medium">
+                      What's your name?
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your full name"
+                        className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button
-              type="submit"
-              className="w-full h-11 bg-slate-900 hover:bg-slate-800 text-white font-medium cursor-pointer"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting
-                ? "Getting started..."
-                : "Get Started"}
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-700 font-medium">
+                      What's your role?
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="!h-11 w-full border-slate-200 focus:border-slate-400 focus:ring-slate-400">
+                          <div className="flex items-center gap-2">
+                            <Briefcase className="w-4 h-4 text-slate-500" />
+                            <SelectValue placeholder="Select your role" />
+                          </div>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {roles.map((role) => (
+                          <SelectItem key={role.value} value={role.value}>
+                            {role.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="language"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-700 font-medium">
+                      What's your preferred language?
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="!h-11 w-full border-slate-200 focus:border-slate-400 focus:ring-slate-400">
+                          <div className="flex items-center gap-2">
+                            <Globe className="w-4 h-4 text-slate-500" />
+                            <SelectValue placeholder="Select your language" />
+                          </div>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <ScrollArea className="h-60">
+                          {languages.map((language) => (
+                            <SelectItem
+                              key={language.code}
+                              value={language.code}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs text-slate-500 font-mono uppercase w-8">
+                                  {language.code}
+                                </span>
+                                <span>{language.name}</span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </ScrollArea>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button
+                type="submit"
+                className="w-full h-11 bg-slate-900 hover:bg-slate-800 text-white font-medium"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting
+                  ? "Getting started..."
+                  : "Get Started"}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

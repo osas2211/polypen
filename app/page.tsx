@@ -1,7 +1,11 @@
 "use client"
 
+import LoginDialog from "@/components/login-dialog"
 import { ShimmerButton } from "@/components/magicui/shimmer-button"
 import { ShinyButton } from "@/components/magicui/shiny-button"
+import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 const images_1 = [
   "/landing/developer.avif",
@@ -14,7 +18,23 @@ const images_2 = [
   "/landing/student.avif",
 ]
 
+interface LoginUser {
+  email: string
+  id: string
+}
+
 export default function Home() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [currentUser, setCurrentUser] = useState<LoginUser | null>(null)
+  const router = useRouter()
+  const handleLoginSuccess = (user: LoginUser) => {
+    setCurrentUser(user)
+    router.push("/dashboard")
+  }
+
+  const handleLogout = () => {
+    setCurrentUser(null)
+  }
   return (
     <div className="bg-[#fffefd] h-screen overflow-hidden">
       <div className="md:grid md:grid-cols-2 gap-4 font-sans md:w-[90%] mx-auto px-4">
@@ -40,11 +60,16 @@ export default function Home() {
             </div>
 
             <div className="flex md:flex-row flex-col gap-4 max-w-[550px]">
-              <ShimmerButton className="rounded-full w-full h-[50px]">
-                Get Started
-              </ShimmerButton>
-              <ShinyButton className="rounded-full w-full h-[50px]">
-                Explore Docs
+              <Link href={"/onboarding"} className="w-full">
+                <ShimmerButton className="rounded-full w-full h-[50px]">
+                  Get Started
+                </ShimmerButton>
+              </Link>
+              <ShinyButton
+                className="rounded-full w-full h-[50px]"
+                onClick={() => setIsLoginOpen(true)}
+              >
+                Login
               </ShinyButton>
             </div>
           </div>
@@ -77,6 +102,11 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <LoginDialog
+        open={isLoginOpen}
+        setOpen={setIsLoginOpen}
+        onLoginSuccess={handleLoginSuccess}
+      />
     </div>
   )
 }
