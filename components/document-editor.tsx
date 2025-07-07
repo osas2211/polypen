@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -25,12 +25,17 @@ import {
   Settings,
   Save,
   FileText,
+  Wifi,
+  WifiOff,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import TinyMCEEditor from "@/components/tinymce-editor"
 import CollaboratorPanel from "@/components/collaborator-panel"
 import CommentPanel from "@/components/comment-panel"
 import { toast } from "sonner"
+import { io } from "socket.io-client"
+
+const socket = io({ transports: ["websocket", "polling"] })
 
 interface Document {
   id: string
@@ -65,7 +70,7 @@ const mockDocument: Document = {
   id: "1",
   title: "Product Launch Strategy",
   type: "report",
-  content: "<p>Write your content here...</p>",
+  content: "",
   wordCount: 0,
   readingTime: "0 min read",
   lastEdited: "Just now",
@@ -142,6 +147,31 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
     }
   }
 
+  const [isConnected, setIsConnected] = useState(false)
+  useEffect(() => {
+    if (socket.connected) {
+      onConnect()
+    }
+
+    function onConnect() {
+      setIsConnected(true)
+
+      socket.io.engine.on("upgrade", (transport) => {})
+    }
+
+    function onDisconnect() {
+      setIsConnected(false)
+    }
+
+    socket.on("connect", onConnect)
+    socket.on("disconnect", onDisconnect)
+
+    return () => {
+      socket.off("connect", onConnect)
+      socket.off("disconnect", onDisconnect)
+    }
+  }, [])
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
@@ -178,6 +208,19 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
             </div>
 
             <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-1">
+                {isConnected ? (
+                  <Wifi className="w-4 h-4 text-green-600" />
+                ) : (
+                  <WifiOff className="w-4 h-4 text-red-600" />
+                )}
+                <Badge
+                  variant={isConnected ? "default" : "destructive"}
+                  className={isConnected ? "bg-green-100 text-green-700" : ""}
+                >
+                  {isConnected ? "Connected" : "Disconnected"}
+                </Badge>
+              </div>
               <div className="flex items-center -space-x-2 mr-4">
                 {collaborators.slice(0, 3).map((collaborator) => (
                   <Avatar
@@ -268,7 +311,11 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
 
           <TabsContent value="editor" className="space-y-6">
             <div className="bg-white">
-              <TinyMCEEditor value={docText} onChange={setDocText} />
+              <TinyMCEEditor
+                value={docText}
+                onChange={setDocText}
+                socket={socket as any}
+              />
             </div>
 
             {/* Document Stats */}
