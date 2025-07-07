@@ -1,23 +1,20 @@
 "use client"
-import {
-  FileIcon,
-  Forward,
-  MoreHorizontal,
-  NotebookPen,
-  Trash2,
-} from "lucide-react"
+import { Filter, Plus, Search } from "lucide-react"
 import React from "react"
+import { Separator } from "@radix-ui/react-separator"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { SidebarMenuAction, useSidebar } from "@/components/ui/sidebar"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import DocumentGrid from "@/components/document-grid"
 
 const data = [
   {
@@ -57,111 +54,58 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <div className="mb-6 flex md:flex-row flex-col gap-4 md:items-center justify-between">
-        <Input
-          className="md:max-w-[380px] h-[45px]"
-          placeholder="Search docs"
-        />
-        <Button className=" h-[45px]">+ Create Doc</Button>
-      </div>
-      <div className="mb-6 md:mb-10">
-        <p className="mb-2 font-medium text-sm">Recently opened</p>
-        <div className="grid md:grid-cols-4 gap-4 md:gap-7">
-          {data.slice(0, 3).map((doc, index) => {
-            return (
-              <div
-                key={index}
-                className="w-full rounded-md border border-sidebar-border p-4 cursor-pointer hover:shadow-md"
-              >
-                <div className="flex items-center justify-between">
-                  <NotebookPen size={18} className="text-lime-600" />
+      <div className="!max-w-[1440px] !mx-auto">
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2">
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>All documents</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
+        <div className="px-4">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                My Documents
+              </h1>
+              <p className="text-slate-600">
+                Create, edit, and organize your content
+              </p>
+            </div>
+            <Button className="bg-slate-900 hover:bg-slate-800">
+              <Plus className="w-4 h-4 mr-2" />
+              New Document
+            </Button>
+          </div>
 
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="hover:bg-accent px-1 rounded-sm cursor-pointer">
-                      <MoreHorizontal size={16} />
-                      <span className="sr-only">More</span>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-48 rounded-lg"
-                      side={isMobile ? "bottom" : "right"}
-                      align={isMobile ? "end" : "start"}
-                    >
-                      <Link href={`/document/id`} className="!cursor-pointer">
-                        <DropdownMenuItem>
-                          <FileIcon className="text-muted-foreground" />
-                          <span>View Doc</span>
-                        </DropdownMenuItem>
-                      </Link>
-                      <DropdownMenuItem>
-                        <Forward className="text-muted-foreground" />
-                        <span>Share Doc</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem className="!text-red-500">
-                        <Trash2 className="text-red-500" />
-                        <span>Delete Doc</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="mt-6">
-                  <p className="truncate font-medium">{doc.title}</p>
-                  <p className="truncate text-sm">{doc.description}</p>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-      <div className="">
-        <p className="mb-2 font-medium text-sm">All documents</p>
-        <div className="grid md:grid-cols-4 gap-4 md:gap-7">
-          {[...data, ...data, ...data].map((doc, index) => {
-            return (
-              <div
-                key={index}
-                className="w-full rounded-md border border-sidebar-border p-4 cursor-pointer hover:shadow-md"
-              >
-                <div className="flex items-center justify-between">
-                  <NotebookPen size={18} className="text-lime-600" />
-
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="hover:bg-accent px-1 rounded-sm cursor-pointer">
-                      <MoreHorizontal size={16} />
-                      <span className="sr-only">More</span>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-48 rounded-lg"
-                      side={isMobile ? "bottom" : "right"}
-                      align={isMobile ? "end" : "start"}
-                    >
-                      <Link href={`/document/id`} className="cursor-pointer">
-                        <DropdownMenuItem>
-                          <FileIcon className="text-muted-foreground" />
-                          <span>View Doc</span>
-                        </DropdownMenuItem>
-                      </Link>
-                      <DropdownMenuItem>
-                        <Forward className="text-muted-foreground" />
-                        <span>Share Doc</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem className="!text-red-500">
-                        <Trash2 className="text-red-500" />
-                        <span>Delete Doc</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="mt-6">
-                  <p className="truncate font-medium">{doc.title}</p>
-                  <p className="truncate text-sm">{doc.description}</p>
-                </div>
-              </div>
-            )
-          })}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+              <Input
+                placeholder="Search documents..."
+                className="pl-10 border-slate-200 focus:border-slate-400 h-[45px]"
+              />
+            </div>
+            <Button variant="outline" size="sm" className="h-[45px]">
+              <Filter className="w-4 h-4 mr-2" />
+              Filter
+            </Button>
+          </div>
+          <div>
+            <DocumentGrid />
+          </div>
         </div>
       </div>
     </div>
