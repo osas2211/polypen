@@ -1,6 +1,6 @@
 "use client"
 import { Filter, Plus, Search } from "lucide-react"
-import React from "react"
+import React, { useState } from "react"
 import { Separator } from "@radix-ui/react-separator"
 import {
   Breadcrumb,
@@ -10,48 +10,19 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { SidebarMenuAction, useSidebar } from "@/components/ui/sidebar"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import DocumentGrid from "@/components/document-grid"
-
-const data = [
-  {
-    id: 1,
-    title: "AI article writer",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, ut,",
-  },
-  {
-    id: 1,
-    title: "AI article writer",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, ut,",
-  },
-  {
-    id: 1,
-    title: "AI article writer",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, ut,",
-  },
-  {
-    id: 1,
-    title: "AI article writer",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, ut,",
-  },
-  {
-    id: 1,
-    title: "AI article writer",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, ut,",
-  },
-]
+import AddDocumentDialog from "@/components/add-document-dialog"
 
 const DashboardPage = () => {
-  const { isMobile } = useSidebar()
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
+  const handleDocumentCreated = (document: any) => {
+    console.log("New document created:", document)
+    // Here you would typically add the document to your state/database
+  }
   return (
     <div>
       <div className="!max-w-[1440px] !mx-auto">
@@ -84,7 +55,10 @@ const DashboardPage = () => {
                 Create, edit, and organize your content
               </p>
             </div>
-            <Button className="bg-slate-900 hover:bg-slate-800">
+            <Button
+              className="bg-slate-900 hover:bg-slate-800"
+              onClick={() => setIsAddDialogOpen(true)}
+            >
               <Plus className="w-4 h-4 mr-2" />
               New Document
             </Button>
@@ -108,6 +82,11 @@ const DashboardPage = () => {
           </div>
         </div>
       </div>
+      <AddDocumentDialog
+        open={isAddDialogOpen}
+        setOpen={setIsAddDialogOpen}
+        onDocumentCreated={handleDocumentCreated}
+      />
     </div>
   )
 }
