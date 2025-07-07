@@ -34,6 +34,7 @@ import CollaboratorPanel from "@/components/collaborator-panel"
 import CommentPanel from "@/components/comment-panel"
 import { toast } from "sonner"
 import { io } from "socket.io-client"
+import { LocaleSwitcher, useLingo } from "lingo.dev/react/client"
 
 const socket = io({ transports: ["websocket", "polling"] })
 
@@ -70,7 +71,7 @@ const mockDocument: Document = {
   id: "1",
   title: "Product Launch Strategy",
   type: "report",
-  content: "",
+  content: "Hello",
   wordCount: 0,
   readingTime: "0 min read",
   lastEdited: "Just now",
@@ -221,6 +222,9 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
                   {isConnected ? "Connected" : "Disconnected"}
                 </Badge>
               </div>
+              <div>
+                <LocaleSwitcher locales={["en", "es", "fr", "de"]} />
+              </div>
               <div className="flex items-center -space-x-2 mr-4">
                 {collaborators.slice(0, 3).map((collaborator) => (
                   <Avatar
@@ -343,10 +347,13 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
 
           <TabsContent value="preview-poet">
             <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-8">
-              <div
-                className="prose prose-slate max-w-none font-serif"
-                dangerouslySetInnerHTML={{ __html: docText }}
-              />
+              <div>
+                {/* <div
+                  className="prose prose-slate max-w-none font-serif"
+                  dangerouslySetInnerHTML={{ __html: docText }}
+                /> */}
+                <div>{docText}</div>
+              </div>
             </div>
           </TabsContent>
         </Tabs>

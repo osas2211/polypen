@@ -59,6 +59,7 @@ export default function TinyMCEEditor({ value, onChange }: TinyMCEEditorProps) {
         ref={editorRef}
         init={{
           placeholder: "write text here..",
+
           height: isMobile ? 500 : 750,
           plugins:
             "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount",

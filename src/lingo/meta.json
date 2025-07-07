@@ -1,0 +1,785 @@
+{
+  "version": 0.1,
+  "files": {
+    "../components/collaborator-panel.tsx": {
+      "scopes": {
+        "12/declaration/body/4/argument/1/1": {
+          "type": "element",
+          "hash": "edad15136c8b827c6981e57bd442e9d1",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Users></element:Users> Collaborators ({collaborators.length})"
+        },
+        "12/declaration/body/4/argument/11/1/1/expression/0/body/1/3/5/expression/right": {
+          "type": "element",
+          "hash": "5c47685f8554d1bfebc005e195bbd096",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Last seen {collaborator.lastSeen}"
+        },
+        "12/declaration/body/4/argument/11/1/1/expression/0/body/3/expression/right/3/1": {
+          "type": "element",
+          "hash": "01046c7b490ca6438e41a1fb025dd574",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Edit></element:Edit> Change to Editor"
+        },
+        "12/declaration/body/4/argument/11/1/1/expression/0/body/3/expression/right/3/3": {
+          "type": "element",
+          "hash": "c516f8d36f2f07b6af27880004633e50",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Eye></element:Eye> Change to Viewer"
+        },
+        "12/declaration/body/4/argument/11/1/1/expression/0/body/3/expression/right/3/5": {
+          "type": "element",
+          "hash": "8cbb1d471247ad82dbc05e2363e57302",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:UserMinus></element:UserMinus> Remove Access"
+        },
+        "12/declaration/body/4/argument/15/1": {
+          "type": "element",
+          "hash": "8ee07d9cbce0933f2adfdcb12d68d80e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Anyone with the link can view this document"
+        },
+        "12/declaration/body/4/argument/5/1/1-placeholder": {
+          "type": "attribute",
+          "hash": "91ee3380904819d9c5af2947b410a7c5",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Enter email address"
+        },
+        "12/declaration/body/4/argument/5/1/3": {
+          "type": "element",
+          "hash": "73f99f3c3b32398692aa4760aeff0b4e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Mail></element:Mail> Invite"
+        },
+        "12/declaration/body/4/argument/5/3": {
+          "type": "element",
+          "hash": "45669df36992f24f0584f75e8859238f",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Invited users will receive an email with access to this document"
+        }
+      }
+    },
+    "../components/comment-panel.tsx": {
+      "scopes": {
+        "11/declaration/body/12/argument/1/1": {
+          "type": "element",
+          "hash": "b55ba24ee9e6a318ae38153c41f5cf81",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:MessageSquare></element:MessageSquare> Comments ({comments.length})"
+        },
+        "11/declaration/body/12/argument/5/1-placeholder": {
+          "type": "attribute",
+          "hash": "c28cfccc0cc69a2a2487e37eb9988028",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Add a comment..."
+        },
+        "11/declaration/body/12/argument/5/3/1/3/expression/right": {
+          "type": "element",
+          "hash": "2de6efd1cb547d3e0981a1d6eb08f226",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Recording..."
+        },
+        "11/declaration/body/12/argument/5/3/3": {
+          "type": "element",
+          "hash": "3d53c23555b22ee70f4629a1af52ed7d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Send></element:Send> Comment"
+        },
+        "11/declaration/body/12/argument/9/1/1/expression/0/body/1/3/1/3/3/1": {
+          "type": "element",
+          "hash": "5b8c749a628efe0ec47d59435fb90567",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Reply></element:Reply> Reply"
+        },
+        "11/declaration/body/12/argument/9/1/1/expression/0/body/1/3/9/expression/right/1-placeholder": {
+          "type": "attribute",
+          "hash": "e15bb5e29e4ad42490d0f9d40d17e21e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Write a reply..."
+        },
+        "11/declaration/body/12/argument/9/1/1/expression/0/body/1/3/9/expression/right/3/1": {
+          "type": "element",
+          "hash": "eef72ec4fa80a1f013b3385fe15871f9",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Reply"
+        },
+        "11/declaration/body/12/argument/9/1/1/expression/0/body/1/3/9/expression/right/3/3": {
+          "type": "element",
+          "hash": "12a3b5a32764d4c8b893812bc2087b82",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Cancel"
+        }
+      }
+    },
+    "../components/document-editor.tsx": {
+      "scopes": {
+        "22/declaration/body/11/argument/3/1/1/1/1": {
+          "type": "element",
+          "hash": "f5942c51a6a3d1f4c853ea62617921cf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:ArrowLeft></element:ArrowLeft> Back"
+        },
+        "22/declaration/body/11/argument/3/1/1/3/13/3/1": {
+          "type": "element",
+          "hash": "2976df4a50099f13ec8bb05b58456f25",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Eye></element:Eye> Preview"
+        },
+        "22/declaration/body/11/argument/3/1/1/3/13/3/3": {
+          "type": "element",
+          "hash": "792382fcd48e3ff3aadabf04be7fe919",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Share2></element:Share2> Export"
+        },
+        "22/declaration/body/11/argument/3/1/1/3/13/3/5": {
+          "type": "element",
+          "hash": "e4dc318e4c55f6ebfd8934907020a782",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Settings></element:Settings> Settings"
+        },
+        "22/declaration/body/11/argument/3/1/1/3/5/3/expression/right/1": {
+          "type": "element",
+          "hash": "8182a22681cd12aa18d0f8fcc3dcfc9d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "+<expression/>"
+        },
+        "22/declaration/body/11/argument/3/1/1/3/7": {
+          "type": "element",
+          "hash": "479649adfb71264a9ca07687eba9ff29",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:UserPlus></element:UserPlus> Share"
+        },
+        "22/declaration/body/11/argument/3/1/1/3/9": {
+          "type": "element",
+          "hash": "98a42721729b6e29ab480e96efc35429",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:MessageSquare></element:MessageSquare> Comments"
+        },
+        "22/declaration/body/11/argument/7/1/1/1": {
+          "type": "element",
+          "hash": "15d1c1521efc08cd482f7ac9e1df0acf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Editor"
+        },
+        "22/declaration/body/11/argument/7/1/1/3": {
+          "type": "element",
+          "hash": "3173ee1f0f1d4e50665ca4a84c38e15d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview"
+        },
+        "22/declaration/body/11/argument/7/1/1/5": {
+          "type": "element",
+          "hash": "246a953cc822af4c1f37dec130339d71",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview as Poet"
+        },
+        "22/declaration/body/11/argument/7/1/3/5/1/1": {
+          "type": "element",
+          "hash": "a22c2cef3e53890a60eb9a64a012326f",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<function:document.wordCount.toLocaleString/> words"
+        },
+        "22/declaration/body/11/argument/7/1/3/5/1/5/3": {
+          "type": "element",
+          "hash": "073809882dd80d20d3a411511eee7526",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Last edited {document.lastEdited}"
+        },
+        "22/declaration/body/11/argument/7/1/3/5/3": {
+          "type": "element",
+          "hash": "54f24431bce95c60f6446a9caf61ea49",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Auto-saved"
+        },
+        "22/declaration/body/11/argument/7/1/7/1/1/3": {
+          "type": "element",
+          "hash": "21540bd7b856c1706b9324a8463a053c",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Hello w"
+        },
+        "22/declaration/body/12/argument/3/1/1/1/1": {
+          "type": "element",
+          "hash": "f5942c51a6a3d1f4c853ea62617921cf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:ArrowLeft></element:ArrowLeft> Back"
+        },
+        "22/declaration/body/12/argument/3/1/1/3/13/3/1": {
+          "type": "element",
+          "hash": "2976df4a50099f13ec8bb05b58456f25",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Eye></element:Eye> Preview"
+        },
+        "22/declaration/body/12/argument/3/1/1/3/13/3/3": {
+          "type": "element",
+          "hash": "792382fcd48e3ff3aadabf04be7fe919",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Share2></element:Share2> Export"
+        },
+        "22/declaration/body/12/argument/3/1/1/3/13/3/5": {
+          "type": "element",
+          "hash": "e4dc318e4c55f6ebfd8934907020a782",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Settings></element:Settings> Settings"
+        },
+        "22/declaration/body/12/argument/3/1/1/3/5/3/expression/right/1": {
+          "type": "element",
+          "hash": "8182a22681cd12aa18d0f8fcc3dcfc9d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "+<expression/>"
+        },
+        "22/declaration/body/12/argument/3/1/1/3/7": {
+          "type": "element",
+          "hash": "479649adfb71264a9ca07687eba9ff29",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:UserPlus></element:UserPlus> Share"
+        },
+        "22/declaration/body/12/argument/3/1/1/3/9": {
+          "type": "element",
+          "hash": "98a42721729b6e29ab480e96efc35429",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:MessageSquare></element:MessageSquare> Comments"
+        },
+        "22/declaration/body/12/argument/7/1/1/1": {
+          "type": "element",
+          "hash": "15d1c1521efc08cd482f7ac9e1df0acf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Editor"
+        },
+        "22/declaration/body/12/argument/7/1/1/3": {
+          "type": "element",
+          "hash": "3173ee1f0f1d4e50665ca4a84c38e15d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview"
+        },
+        "22/declaration/body/12/argument/7/1/1/5": {
+          "type": "element",
+          "hash": "246a953cc822af4c1f37dec130339d71",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview as Poet"
+        },
+        "22/declaration/body/12/argument/7/1/3/5/1/1": {
+          "type": "element",
+          "hash": "a22c2cef3e53890a60eb9a64a012326f",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<function:document.wordCount.toLocaleString/> words"
+        },
+        "22/declaration/body/12/argument/7/1/3/5/1/5/3": {
+          "type": "element",
+          "hash": "073809882dd80d20d3a411511eee7526",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Last edited {document.lastEdited}"
+        },
+        "22/declaration/body/12/argument/7/1/3/5/3": {
+          "type": "element",
+          "hash": "54f24431bce95c60f6446a9caf61ea49",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Auto-saved"
+        },
+        "22/declaration/body/13/argument/3/1/1/1/1": {
+          "type": "element",
+          "hash": "f5942c51a6a3d1f4c853ea62617921cf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:ArrowLeft></element:ArrowLeft> Back"
+        },
+        "22/declaration/body/13/argument/3/1/1/3/13/3/1": {
+          "type": "element",
+          "hash": "2976df4a50099f13ec8bb05b58456f25",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Eye></element:Eye> Preview"
+        },
+        "22/declaration/body/13/argument/3/1/1/3/13/3/3": {
+          "type": "element",
+          "hash": "792382fcd48e3ff3aadabf04be7fe919",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Share2></element:Share2> Export"
+        },
+        "22/declaration/body/13/argument/3/1/1/3/13/3/5": {
+          "type": "element",
+          "hash": "e4dc318e4c55f6ebfd8934907020a782",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Settings></element:Settings> Settings"
+        },
+        "22/declaration/body/13/argument/3/1/1/3/5/3/expression/right/1": {
+          "type": "element",
+          "hash": "8182a22681cd12aa18d0f8fcc3dcfc9d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "+<expression/>"
+        },
+        "22/declaration/body/13/argument/3/1/1/3/7": {
+          "type": "element",
+          "hash": "479649adfb71264a9ca07687eba9ff29",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:UserPlus></element:UserPlus> Share"
+        },
+        "22/declaration/body/13/argument/3/1/1/3/9": {
+          "type": "element",
+          "hash": "98a42721729b6e29ab480e96efc35429",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:MessageSquare></element:MessageSquare> Comments"
+        },
+        "22/declaration/body/13/argument/7/1/1/1": {
+          "type": "element",
+          "hash": "15d1c1521efc08cd482f7ac9e1df0acf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Editor"
+        },
+        "22/declaration/body/13/argument/7/1/1/3": {
+          "type": "element",
+          "hash": "3173ee1f0f1d4e50665ca4a84c38e15d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview"
+        },
+        "22/declaration/body/13/argument/7/1/1/5": {
+          "type": "element",
+          "hash": "246a953cc822af4c1f37dec130339d71",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview as Poet"
+        },
+        "22/declaration/body/13/argument/7/1/3/5/1/1": {
+          "type": "element",
+          "hash": "a22c2cef3e53890a60eb9a64a012326f",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<function:document.wordCount.toLocaleString/> words"
+        },
+        "22/declaration/body/13/argument/7/1/3/5/1/5/3": {
+          "type": "element",
+          "hash": "073809882dd80d20d3a411511eee7526",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Last edited {document.lastEdited}"
+        },
+        "22/declaration/body/13/argument/7/1/3/5/3": {
+          "type": "element",
+          "hash": "54f24431bce95c60f6446a9caf61ea49",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Auto-saved"
+        },
+        "24/declaration/body/13/argument/3/1/1/1/1": {
+          "type": "element",
+          "hash": "f5942c51a6a3d1f4c853ea62617921cf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:ArrowLeft></element:ArrowLeft> Back"
+        },
+        "24/declaration/body/13/argument/3/1/1/3/13/3/1": {
+          "type": "element",
+          "hash": "2976df4a50099f13ec8bb05b58456f25",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Eye></element:Eye> Preview"
+        },
+        "24/declaration/body/13/argument/3/1/1/3/13/3/3": {
+          "type": "element",
+          "hash": "792382fcd48e3ff3aadabf04be7fe919",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Share2></element:Share2> Export"
+        },
+        "24/declaration/body/13/argument/3/1/1/3/13/3/5": {
+          "type": "element",
+          "hash": "e4dc318e4c55f6ebfd8934907020a782",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Settings></element:Settings> Settings"
+        },
+        "24/declaration/body/13/argument/3/1/1/3/5/3/expression/right/1": {
+          "type": "element",
+          "hash": "8182a22681cd12aa18d0f8fcc3dcfc9d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "+<expression/>"
+        },
+        "24/declaration/body/13/argument/3/1/1/3/7": {
+          "type": "element",
+          "hash": "479649adfb71264a9ca07687eba9ff29",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:UserPlus></element:UserPlus> Share"
+        },
+        "24/declaration/body/13/argument/3/1/1/3/9": {
+          "type": "element",
+          "hash": "98a42721729b6e29ab480e96efc35429",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:MessageSquare></element:MessageSquare> Comments"
+        },
+        "24/declaration/body/13/argument/7/1/1/1": {
+          "type": "element",
+          "hash": "15d1c1521efc08cd482f7ac9e1df0acf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Editor"
+        },
+        "24/declaration/body/13/argument/7/1/1/3": {
+          "type": "element",
+          "hash": "3173ee1f0f1d4e50665ca4a84c38e15d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview"
+        },
+        "24/declaration/body/13/argument/7/1/1/5": {
+          "type": "element",
+          "hash": "246a953cc822af4c1f37dec130339d71",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Preview as Poet"
+        },
+        "24/declaration/body/13/argument/7/1/3/5/1/1": {
+          "type": "element",
+          "hash": "a22c2cef3e53890a60eb9a64a012326f",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<function:document.wordCount.toLocaleString/> words"
+        },
+        "24/declaration/body/13/argument/7/1/3/5/1/5/3": {
+          "type": "element",
+          "hash": "073809882dd80d20d3a411511eee7526",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Last edited {document.lastEdited}"
+        },
+        "24/declaration/body/13/argument/7/1/3/5/3": {
+          "type": "element",
+          "hash": "54f24431bce95c60f6446a9caf61ea49",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Auto-saved"
+        }
+      }
+    },
+    "../components/nav-main.tsx": {
+      "scopes": {
+        "4/declaration/body/0/argument/1": {
+          "type": "element",
+          "hash": "c68862170146325333c7f25af11a3fa2",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Platform"
+        }
+      }
+    },
+    "../components/nav-organizations.tsx": {
+      "scopes": {
+        "3/declaration/body/1/argument/1": {
+          "type": "element",
+          "hash": "bd50dd0b17bd74a72b728a8385b5ee28",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Organizations"
+        },
+        "3/declaration/body/1/argument/3/1/expression/0/body/3/1/1/3": {
+          "type": "element",
+          "hash": "ee5e035ee328a8947be2ea44e338a57d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "More"
+        },
+        "3/declaration/body/1/argument/3/1/expression/0/body/3/3/1/3": {
+          "type": "element",
+          "hash": "7488d9bb340ad4a702bee203872b2555",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "View Docs"
+        },
+        "3/declaration/body/1/argument/3/1/expression/0/body/3/3/3/3": {
+          "type": "element",
+          "hash": "44167a912334222a72e8af620f309906",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Share Docs"
+        },
+        "3/declaration/body/1/argument/3/1/expression/0/body/3/3/7/3": {
+          "type": "element",
+          "hash": "5e68fc1fafdc670a14802762fd6f2c02",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Delete Docs"
+        },
+        "3/declaration/body/1/argument/3/3/1/3": {
+          "type": "element",
+          "hash": "ee5e035ee328a8947be2ea44e338a57d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "More"
+        }
+      }
+    },
+    "../components/nav-user.tsx": {
+      "scopes": {
+        "4/declaration/body/1/argument/1/1/1/1/1/3": {
+          "type": "element",
+          "hash": "5796507f657484613eca22e099326c84",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "CN"
+        },
+        "4/declaration/body/1/argument/1/1/3/1/1/1/3": {
+          "type": "element",
+          "hash": "5796507f657484613eca22e099326c84",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "CN"
+        },
+        "4/declaration/body/1/argument/1/1/3/13": {
+          "type": "element",
+          "hash": "590887de65485d5e66ae9b1838aa495d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:LogOut></element:LogOut> Log out"
+        },
+        "4/declaration/body/1/argument/1/1/3/5/1": {
+          "type": "element",
+          "hash": "2dfba6a505f959b403336ea6af8ce777",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Sparkles></element:Sparkles> Upgrade to Pro"
+        },
+        "4/declaration/body/1/argument/1/1/3/9/1": {
+          "type": "element",
+          "hash": "659a069cebe95f1dfbab0723a1cac64b",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:BadgeCheck></element:BadgeCheck> Account"
+        },
+        "4/declaration/body/1/argument/1/1/3/9/3": {
+          "type": "element",
+          "hash": "5749c1aabeac72c75cc0bf8a076fb9d1",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:CreditCard></element:CreditCard> Billing"
+        },
+        "4/declaration/body/1/argument/1/1/3/9/5": {
+          "type": "element",
+          "hash": "b7cd3fd88b25e32d5036805eb352bfb0",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Bell></element:Bell> Notifications"
+        }
+      }
+    },
+    "../components/team-switcher.tsx": {
+      "scopes": {
+        "4/declaration/body/3/argument/1/1/3/1": {
+          "type": "element",
+          "hash": "85ff3e7bf1a7b54b75f61c70150da851",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Teams"
+        },
+        "4/declaration/body/3/argument/1/1/3/3/expression/0/body/5": {
+          "type": "element",
+          "hash": "76b8d7c2b91c63ae0531c8931c6ed137",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "⌘<expression/>"
+        },
+        "4/declaration/body/3/argument/1/1/3/7/3": {
+          "type": "element",
+          "hash": "36cf3f97b42e53cdf54b564e021fa350",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Add team"
+        }
+      }
+    },
+    "../components/ui/sheet.tsx": {
+      "scopes": {
+        "9/body/0/argument/3/3/3": {
+          "type": "element",
+          "hash": "2c2e22f8424a1031de89063bd0022e16",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Close"
+        }
+      }
+    },
+    "../components/ui/sidebar.tsx": {
+      "scopes": {
+        "22/body/2/consequent/0/argument/1/1/1": {
+          "type": "element",
+          "hash": "85fcd93a6f051c26d057e4b30d392317",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Sidebar"
+        },
+        "22/body/2/consequent/0/argument/1/1/3": {
+          "type": "element",
+          "hash": "51aa5f202c817560f38d3527a9a1366d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Displays the mobile sidebar."
+        },
+        "23/body/1/argument/3": {
+          "type": "element",
+          "hash": "0ef91fcb33b04612eb8a202f673d7881",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Toggle Sidebar"
+        },
+        "24/body/1/argument-aria-label": {
+          "type": "attribute",
+          "hash": "0ef91fcb33b04612eb8a202f673d7881",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Toggle Sidebar"
+        },
+        "24/body/1/argument-title": {
+          "type": "attribute",
+          "hash": "0ef91fcb33b04612eb8a202f673d7881",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Toggle Sidebar"
+        }
+      }
+    }
+  }
+}
