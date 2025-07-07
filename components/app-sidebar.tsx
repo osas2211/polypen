@@ -12,6 +12,7 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  User,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -110,25 +111,13 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "Profile",
       url: "#",
-      icon: Settings2,
+      icon: User,
       items: [
         {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Manage Profile",
+          url: "/profile",
         },
       ],
     },
