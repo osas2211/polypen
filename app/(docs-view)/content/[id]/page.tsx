@@ -18,6 +18,7 @@ import TradingInterface from "@/components/content-reader/trading-interface"
 import ContentTabs from "@/components/content-reader/content-tabs"
 import RoleSelector from "@/components/content-reader/role-selector"
 import EnhancedContent from "@/components/content-reader/enhanced-content"
+import { useParams } from "next/navigation"
 
 // Mock data
 const mockContent = {
@@ -164,11 +165,7 @@ const mockActivities = [
   },
 ]
 
-export default function ContentReaderPage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export default function ContentReaderPage() {
   const router = useRouter()
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [selectedRole, setSelectedRole] = useState("default")
