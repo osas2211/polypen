@@ -1,6 +1,186 @@
 {
   "version": 0.1,
   "files": {
+    "../app/(in-app)/dashboard/page.tsx": {
+      "scopes": {
+        "9/0/init/body/2/argument/1/1/1/3/1/1/1": {
+          "type": "element",
+          "hash": "c9380ea68c8c76ea451bd9613329a07c",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Dashboard"
+        },
+        "9/0/init/body/2/argument/1/1/1/3/1/5/1": {
+          "type": "element",
+          "hash": "4c9b2976267e9569e4800e58023ba13b",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "All documents"
+        },
+        "9/0/init/body/2/argument/1/3/1/1/1": {
+          "type": "element",
+          "hash": "c495f82e57dd1c489ad0c7996753a850",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "My Documents"
+        },
+        "9/0/init/body/2/argument/1/3/1/1/3": {
+          "type": "element",
+          "hash": "2ea31a8490d0895c19786be7ba24992e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Create, edit, and organize your content"
+        },
+        "9/0/init/body/2/argument/1/3/1/3": {
+          "type": "element",
+          "hash": "756f712f665e563b4251aee4e4735c08",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Plus></element:Plus> New Document"
+        },
+        "9/0/init/body/2/argument/1/3/3/1/3-placeholder": {
+          "type": "attribute",
+          "hash": "871fbf354961a9d3a3eadc5c6cb15d31",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Search documents..."
+        },
+        "9/0/init/body/2/argument/1/3/3/3": {
+          "type": "element",
+          "hash": "ce7257d6fa7db251162dd9b5bb0f9cc2",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Filter></element:Filter> Filter"
+        }
+      }
+    },
+    "../app/page.tsx": {
+      "scopes": {
+        "9/declaration/body/5/argument/1/1/1/1": {
+          "type": "element",
+          "hash": "616db838fd8463647ac3f288895c7150",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "#CustomHack"
+        },
+        "9/declaration/body/5/argument/1/1/1/3": {
+          "type": "element",
+          "hash": "00e6c4d26901f274a43e4a95d70a11f3",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "PolyPen"
+        },
+        "9/declaration/body/5/argument/1/1/1/5/1": {
+          "type": "element",
+          "hash": "0c472d09a12688f87f58a05e9c007d5e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Real-Time Multilingual Collaborative Writing that translats both language and intent."
+        },
+        "9/declaration/body/5/argument/1/1/1/5/3": {
+          "type": "element",
+          "hash": "dc065e0e0a704d48b73169ab5152520b",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Whether a developer is co-writing with a product manager or a songwriter, it adapts tone, role, and context in real time. It's not just a writing tool, it's a handshake between every kind of writer."
+        },
+        "9/declaration/body/5/argument/1/1/1/7/1/1": {
+          "type": "element",
+          "hash": "ca8c7615e25781bd86a72e52b23d5eeb",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Get Started"
+        },
+        "9/declaration/body/5/argument/1/1/1/7/3": {
+          "type": "element",
+          "hash": "00709126857f0659df8465f6726ba0d5",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Login"
+        }
+      }
+    },
+    "../components/add-document-dialog.tsx": {
+      "scopes": {
+        "17/declaration/body/5/argument/1/1/1": {
+          "type": "element",
+          "hash": "d5a43b0d37f6c54f6c88d8908beab474",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Plus></element:Plus> Create New Document"
+        },
+        "17/declaration/body/5/argument/1/3/1/1/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "7dfdd523c9607f8e1735f4ced828fc4e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Document Title"
+        },
+        "17/declaration/body/5/argument/1/3/1/1/openingElement/2/value/expression/body/3/1-placeholder": {
+          "type": "attribute",
+          "hash": "98d4fda83ca2544ebd7e773709095336",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Enter document title..."
+        },
+        "17/declaration/body/5/argument/1/3/1/3/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "abf0202f127616cf3d3f2e3914b089f3",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Document Type"
+        },
+        "17/declaration/body/5/argument/1/3/1/3/openingElement/2/value/expression/body/3/1/1/1/3-placeholder": {
+          "type": "attribute",
+          "hash": "fb329e90353adf369111b2b3c9f2817e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Select document type"
+        },
+        "17/declaration/body/5/argument/1/3/1/5/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "4e1fcce15854d824919b4a582c697c90",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Status"
+        },
+        "17/declaration/body/5/argument/1/3/1/5/openingElement/2/value/expression/body/3/1/1/1-placeholder": {
+          "type": "attribute",
+          "hash": "b9676de6a2f03b150ae86ed413ca5741",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Select status"
+        },
+        "17/declaration/body/5/argument/1/3/1/7/1": {
+          "type": "element",
+          "hash": "5936f87dccc089542c7871a72ed1dacf",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Cancel"
+        }
+      }
+    },
     "../components/collaborator-panel.tsx": {
       "scopes": {
         "12/declaration/body/4/argument/1/1": {
@@ -573,6 +753,182 @@
         }
       }
     },
+    "../components/document-grid.tsx": {
+      "scopes": {
+        "10/declaration/body/1/argument/1/expression/0/body/1/1/1/3/3/1/1": {
+          "type": "element",
+          "hash": "b01b83d90c761f384953074a718d330b",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Edit3></element:Edit3> Edit"
+        },
+        "10/declaration/body/1/argument/1/expression/0/body/1/1/1/3/3/3": {
+          "type": "element",
+          "hash": "be6174bc927736e67ce57554acd420e3",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Copy></element:Copy> Duplicate"
+        },
+        "10/declaration/body/1/argument/1/expression/0/body/1/1/1/3/3/5": {
+          "type": "element",
+          "hash": "b772e8a2c91da281f806acefb4c8b7de",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Share2></element:Share2> Share"
+        },
+        "10/declaration/body/1/argument/1/expression/0/body/1/1/1/3/3/7": {
+          "type": "element",
+          "hash": "ef48ab4aea536a7cda31617d78e2ae19",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Archive></element:Archive> Archive"
+        },
+        "10/declaration/body/1/argument/1/expression/0/body/1/1/3/3/1": {
+          "type": "element",
+          "hash": "a22c2cef3e53890a60eb9a64a012326f",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<function:doc.wordCount.toLocaleString/> words"
+        },
+        "10/declaration/body/1/argument/1/expression/0/body/1/1/3/5/3": {
+          "type": "element",
+          "hash": "0c40332e6102c6ec0f2d1a00c690b93c",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Edited {doc.lastEdited}"
+        }
+      }
+    },
+    "../components/login-dialog.tsx": {
+      "scopes": {
+        "18/declaration/body/12/argument/1/1/1/1/expression/right": {
+          "type": "element",
+          "hash": "60808ef03d6b56c87b7eed3e768bbfbb",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Mail></element:Mail> Sign In"
+        },
+        "18/declaration/body/12/argument/1/1/1/3/expression/right": {
+          "type": "element",
+          "hash": "b44bd5493333d16fdcf205891fec94e0",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Shield></element:Shield> Enter Verification Code"
+        },
+        "18/declaration/body/12/argument/1/1/1/5/expression/right": {
+          "type": "element",
+          "hash": "a18a68898d76ce33dc5e9d612476285a",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:CheckCircle></element:CheckCircle> Login Successful"
+        },
+        "18/declaration/body/12/argument/1/13/expression/right/3/1": {
+          "type": "element",
+          "hash": "653ecbf8075c95efe647084188573b12",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Welcome back!"
+        },
+        "18/declaration/body/12/argument/1/13/expression/right/3/3": {
+          "type": "element",
+          "hash": "54287c431e532083b51b34c1ca7e5e94",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "You're successfully logged in as {userEmail}"
+        },
+        "18/declaration/body/12/argument/1/13/expression/right/5/3": {
+          "type": "element",
+          "hash": "9baaf33758802a53c9765f4161d696d3",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Redirecting..."
+        },
+        "18/declaration/body/12/argument/1/5/expression/right/1/1/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "0ee22bbbe989a0c61a18023407d12dc2",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Email Address"
+        },
+        "18/declaration/body/12/argument/1/5/expression/right/1/1/openingElement/2/value/expression/body/3/1-placeholder": {
+          "type": "attribute",
+          "hash": "9bc008365ebe3e404e241c8ca876f56e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Enter your email address"
+        },
+        "18/declaration/body/12/argument/1/5/expression/right/1/3/1/expression/alternate": {
+          "type": "element",
+          "hash": "ee346b2f01f80991c6acdfe925fddf9a",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Mail></element:Mail> Send Verification Code"
+        },
+        "18/declaration/body/12/argument/1/5/expression/right/1/3/1/expression/consequent": {
+          "type": "element",
+          "hash": "dcf95925f8687a8c9c7ec306eaeed256",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Loader2></element:Loader2> Sending Code..."
+        },
+        "18/declaration/body/12/argument/1/9/expression/right/1/3/expression/right": {
+          "type": "element",
+          "hash": "ef7269879a3a44bf1d4ed02877f564c3",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Code sent at <function:formatTime/>"
+        },
+        "18/declaration/body/12/argument/1/9/expression/right/3/1/1/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "4cebef0f16689fbb49d5f1eee10618d2",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Verification Code"
+        },
+        "18/declaration/body/12/argument/1/9/expression/right/3/1/1/openingElement/2/value/expression/body/3/1-placeholder": {
+          "type": "attribute",
+          "hash": "3a744e7993f20e2f48eee3931e2e6bf9",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Enter 6-digit code"
+        },
+        "18/declaration/body/12/argument/1/9/expression/right/3/1/3/1": {
+          "type": "element",
+          "hash": "40d08ac65ef9dac64bdf688ff338c64e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:ArrowLeft></element:ArrowLeft> Back"
+        },
+        "18/declaration/body/12/argument/1/9/expression/right/3/1/3/3/1/expression/consequent": {
+          "type": "element",
+          "hash": "5dcacce5079f4b671d8c634a16307d16",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "<element:Loader2></element:Loader2> Verifying..."
+        }
+      }
+    },
     "../components/nav-main.tsx": {
       "scopes": {
         "4/declaration/body/0/argument/1": {
@@ -697,6 +1053,90 @@
         }
       }
     },
+    "../components/onboarding-form.tsx": {
+      "scopes": {
+        "17/declaration/body/3/argument/1/1/3": {
+          "type": "element",
+          "hash": "8778dc41547a2778d0f9482da989fc00",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Welcome!"
+        },
+        "17/declaration/body/3/argument/1/1/5": {
+          "type": "element",
+          "hash": "e6a4cb0efa1a42448994bf4649e6e3a1",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Let's get you set up with a few quick details"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/1/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "6a4be250f97e517f9bb5f377837bac0b",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Email address?"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/1/openingElement/2/value/expression/body/3/1-placeholder": {
+          "type": "attribute",
+          "hash": "9bc008365ebe3e404e241c8ca876f56e",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Enter your email address"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/3/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "3250cae3fd7f9fd5ce267691de83e0fa",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "What's your name?"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/3/openingElement/2/value/expression/body/3/1-placeholder": {
+          "type": "attribute",
+          "hash": "5c927d18c76f612d106a4b69e437f6be",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Enter your full name"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/5/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "f112a0973f9e63a8d4dd0d4555a7befa",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "What's your role?"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/5/openingElement/2/value/expression/body/3/1/1/1/3-placeholder": {
+          "type": "attribute",
+          "hash": "6cdb02f78088302b6ec34cfde0fd9967",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Select your role"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/7/openingElement/2/value/expression/body/1": {
+          "type": "element",
+          "hash": "1d1c6de0df2f61b48fc67dc3016ffb76",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "What's your preferred language?"
+        },
+        "17/declaration/body/3/argument/1/3/1/1/7/openingElement/2/value/expression/body/3/1/1/1/3-placeholder": {
+          "type": "attribute",
+          "hash": "1f49e4274ccd5cd6649edbe943b5cdbb",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Select your language"
+        }
+      }
+    },
     "../components/team-switcher.tsx": {
       "scopes": {
         "4/declaration/body/3/argument/1/1/3/1": {
@@ -722,6 +1162,38 @@
           "skip": false,
           "overrides": {},
           "content": "Add team"
+        }
+      }
+    },
+    "../components/ui/breadcrumb.tsx": {
+      "scopes": {
+        "10/body/0/argument/3": {
+          "type": "element",
+          "hash": "ee5e035ee328a8947be2ea44e338a57d",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "More"
+        },
+        "4/body/0/argument-aria-label": {
+          "type": "attribute",
+          "hash": "6ff91b79dc0ab911eabd5433c4702fea",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "breadcrumb"
+        }
+      }
+    },
+    "../components/ui/dialog.tsx": {
+      "scopes": {
+        "9/body/0/argument/3/3/expression/right/3": {
+          "type": "element",
+          "hash": "2c2e22f8424a1031de89063bd0022e16",
+          "context": "",
+          "skip": false,
+          "overrides": {},
+          "content": "Close"
         }
       }
     },

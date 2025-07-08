@@ -7,6 +7,9 @@ import { DefaultEventsMap, Socket } from "socket.io"
 import { useParams } from "next/navigation"
 import { toast } from "sonner"
 import { io } from "socket.io-client"
+import { useTranslation } from '@joelshejar/react-ai-translator';
+
+
 
 const socket = io({ transports: ["websocket", "polling"] })
 
@@ -17,6 +20,7 @@ interface TinyMCEEditorProps {
 }
 
 export default function TinyMCEEditor({ value, onChange }: TinyMCEEditorProps) {
+
   const editorRef = useRef<Editor>(null)
   const isMobile = useIsMobile()
   const { id } = useParams()
@@ -68,8 +72,9 @@ export default function TinyMCEEditor({ value, onChange }: TinyMCEEditorProps) {
         }}
         tagName="content"
         onEditorChange={(text) => {
+          
           socket.emit("edit_doc", { doc_id: "1", text: text })
-          onChange(text)
+          onChange(value)
         }}
         value={value}
       />
