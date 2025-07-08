@@ -43,7 +43,7 @@ const data = {
     {
       name: "PolyPen",
       logo: AudioWaveform,
-      plan: "#CustomHack",
+      plan: "#Zora",
     },
     // {
     //   name: "Evil Corp.",
@@ -67,8 +67,8 @@ const data = {
           url: "#",
         },
         {
-          title: "Settings",
-          url: "#",
+          title: "Marketplace",
+          url: "/docs",
         },
       ],
     },
@@ -97,15 +97,7 @@ const data = {
           url: "#",
         },
         {
-          title: "Lingo.dev",
-          url: "#",
-        },
-        {
-          title: "Supabase",
-          url: "#",
-        },
-        {
-          title: "Autumn",
+          title: "Zora",
           url: "#",
         },
       ],
