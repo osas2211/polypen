@@ -27,6 +27,8 @@ import { User, Briefcase, Globe } from "lucide-react"
 import { languages } from "@/utils/languages"
 import { supabase } from "@/utils/supabase"
 import { useRouter } from "next/navigation"
+import { useOnboardUser } from "@/hooks/use-user"
+import { useWallet } from "@/contexts/walletContext"
 
 const roles = [
   { value: "developer", label: "Developer" },
@@ -45,7 +47,10 @@ const formSchema = z.object({
     .regex(/^[a-zA-Z\s]+$/, {
       message: "Name can only contain letters and spaces",
     }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
+  email: z
+    .string()
+    .email({ message: "Please enter a valid email address" })
+    .optional(),
 
   role: z.enum(
     ["developer", "poet", "blogger", "musician", "writer", "product-manager"],
@@ -71,6 +76,8 @@ export default function OnboardingForm() {
       language: "",
     },
   })
+  const { mutateAsync, isPending } = useOnboardUser()
+  const { address, signer } = useWallet()
 
   async function onSubmit(data: FormData) {
     try {
@@ -78,20 +85,13 @@ export default function OnboardingForm() {
         (lang) => lang.code === data.language
       )
 
-      const { error } = await supabase
-        .from("users")
-        .insert([{ ...data }])
-        .select()
-      if (error) {
-        throw new Error()
-      }
-      toast.success("Welcome aboard!", {
-        description: `Hello ${data.name}! We're excited to have you as a ${
-          roles.find((r) => r.value === data.role)?.label
-        } who speaks ${selectedLanguage?.name}.`,
+      await mutateAsync({
+        name: data.name,
+        role: data.role,
+        wallet_address: address!,
+        language: selectedLanguage?.code || "en",
       })
-      await supabase.auth.signInAnonymously()
-      router.replace("/dashboard")
+      router.back()
     } catch (error) {
       toast.error("Error", {
         description: "Failed to onboard. Please try again.",
@@ -116,34 +116,15 @@ export default function OnboardingForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-slate-700 font-medium">
-                      Email address?
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your email address"
-                        className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-slate-700 font-medium">
-                      What's your name?
+                      What's your username?
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your full name"
+                        placeholder="@xyzname"
                         className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
                         {...field}
                       />

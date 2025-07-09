@@ -30,7 +30,11 @@ export function useUser(wallet_address: string | undefined) {
 export function useOnboardUser() {
   const qc = useQueryClient()
   return useMutation<{ streamId: string }, Error, OnboardPayload>({
-    mutationFn: (payload: OnboardPayload) => onboardUser(payload),
+    mutationFn: (payload: OnboardPayload) =>
+      onboardUser({
+        ...payload,
+        wallet_address: payload?.wallet_address?.toLowerCase(),
+      }),
     onSuccess: () => {
       // Refresh the users list after a successful onboard
       qc.invalidateQueries({ queryKey: ["users"] })

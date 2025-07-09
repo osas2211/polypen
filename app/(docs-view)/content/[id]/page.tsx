@@ -21,6 +21,7 @@ import EnhancedContent from "@/components/content-reader/enhanced-content"
 import { useParams } from "next/navigation"
 import ConnectButton from "@/components/connect-wallet"
 import { useUsers } from "@/hooks/use-user"
+import { useDocuments } from "@/hooks/use-hooks"
 
 // Mock data
 const mockContent = {
@@ -172,7 +173,8 @@ export default function ContentReaderPage() {
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [selectedRole, setSelectedRole] = useState("default")
   const { data } = useUsers()
-  console.log(data)
+  const { data: docs } = useDocuments()
+  console.log(data, docs)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">

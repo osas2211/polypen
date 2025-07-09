@@ -31,7 +31,8 @@
     "scripts/create-tableland.js",
     "scripts/create-tableland.js",
     "scripts/create-tableland.mts",
-    "scripts/create-tableland.js"
+    "scripts/create-tableland.js",
+    "scripts/create-documents-tableland.js"
   ],
   "exclude": ["node_modules"]
 }

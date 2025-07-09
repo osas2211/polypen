@@ -3,10 +3,11 @@ import api from "./api.instance"
 export interface OnboardPayload {
   name: string
   wallet_address: string
-  role: "developer" | "poet" | "doctor"
+  role: string
   bio?: string
   website?: string
   avatar?: string
+  language?: string
 }
 
 export interface Collaborator {

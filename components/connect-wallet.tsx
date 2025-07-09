@@ -23,6 +23,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import api from "@/services/api.instance"
 
 export default function ConnectWalletButton() {
   const { address, connectWallet, disconnect } = useWallet()
@@ -31,10 +32,28 @@ export default function ConnectWalletButton() {
   const handleConnect = async () => {
     setIsConnecting(true)
     try {
-      await connectWallet()
+      // 1) Connect the wallet
+      const addr = await connectWallet()
       toast.success("Wallet Connected", {
         description: "Successfully connected to your wallet",
       })
+
+      // 2) Check if user exists in our DB
+      try {
+        const { data } = await api.get<{ user: any }>(
+          `/users/${addr?.toLowerCase()}`
+        )
+      } catch (err: any) {
+        // 404 means no user found → send to onboarding
+        if (err.response?.status === 404) {
+          router.push("/onboarding")
+        } else {
+          console.error(err)
+          toast.error("Oops", {
+            description: "Unable to verify user—please try again.",
+          })
+        }
+      }
     } catch (error) {
       toast.error("Connection Failed", {
         description: "Failed to connect wallet. Please try again.",

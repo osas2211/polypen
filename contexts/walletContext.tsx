@@ -13,12 +13,12 @@ import { BrowserProvider, Signer } from "ethers"
 interface WalletContextType {
   address?: string
   signer?: Signer
-  connectWallet: () => Promise<void>
+  connectWallet: () => Promise<string | undefined>
   disconnect: () => void
 }
 
 const WalletContext = createContext<WalletContextType>({
-  connectWallet: async () => {},
+  connectWallet: async () => "",
   disconnect: () => {},
 })
 
@@ -56,16 +56,24 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     const addr = await sg.getAddress()
     setSigner(sg)
     setAddress(addr)
+    console.log(addr, sg)
+
+    return addr
   }
 
-  const disconnect = () => {
+  const disconnect = async () => {
     setSigner(undefined)
     setAddress(undefined)
   }
 
   return (
     <WalletContext.Provider
-      value={{ address, signer, connectWallet, disconnect }}
+      value={{
+        address,
+        signer,
+        connectWallet,
+        disconnect,
+      }}
     >
       {children}
     </WalletContext.Provider>

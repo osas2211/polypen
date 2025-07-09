@@ -27,6 +27,7 @@ async function main() {
       bio            TEXT,
       website        TEXT,
       avatar         TEXT,
+      language       TEXT,
       createdAt      TEXT
     );
   `
