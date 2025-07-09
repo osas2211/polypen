@@ -24,6 +24,8 @@ import {
   Clock,
 } from "lucide-react"
 import Link from "next/link"
+import { useDocument, useDocuments } from "@/hooks/use-documents"
+import moment from "moment"
 
 interface Document {
   id: string
@@ -136,7 +138,7 @@ const documents: Document[] = [
   },
 ]
 
-const getDocumentIcon = (type: Document["type"]) => {
+const getDocumentIcon = (type: any) => {
   const iconProps = { className: "w-8 h-8" }
 
   switch (type) {
@@ -161,7 +163,7 @@ const getDocumentIcon = (type: Document["type"]) => {
   }
 }
 
-const getStatusBadge = (status: Document["status"]) => {
+const getStatusBadge = (status: any) => {
   const variants = {
     draft: {
       label: "Draft",
@@ -181,7 +183,7 @@ const getStatusBadge = (status: Document["status"]) => {
     },
   }
 
-  const variant = variants[status]
+  const variant = variants[status as Document["status"]]
 
   return (
     <Badge variant="secondary" className={variant.className}>
@@ -195,79 +197,103 @@ export default function DocumentGrid() {
     console.log("Edit document:", docId)
     // Navigate to editor
   }
+  const { data, isLoading } = useDocuments()
+  const { data: doc } = useDocument("1752028086389")
+  console.log(doc)
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
-      {documents.map((doc) => (
-        <Card
-          key={doc.id}
-          className="group hover:shadow-md transition-all duration-200 cursor-pointer border-sidebar-accent hover:border-slate-300"
-          onClick={() => handleEdit(doc.id)}
-        >
-          <Link href={`/document/${doc.id}`}>
-            <CardContent className="p-4">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex-shrink-0">{getDocumentIcon(doc.type)}</div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <MoreHorizontal className="w-4 h-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <Link href={`/document/${doc.id}`}>
-                      <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                        <Edit3 className="w-4 h-4 mr-2" />
-                        Edit
-                      </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                      <Copy className="w-4 h-4 mr-2" />
-                      Duplicate
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                      <Share2 className="w-4 h-4 mr-2" />
-                      Share
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                      <Archive className="w-4 h-4 mr-2" />
-                      Archive
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+      {isLoading ? (
+        <>
+          <p>Loading documents...</p>
+        </>
+      ) : (
+        <>
+          {data &&
+            data?.map((doc) => (
+              <Card
+                key={doc.id}
+                className="group hover:shadow-md transition-all duration-200 cursor-pointer border-sidebar-accent hover:border-slate-300"
+                onClick={() => handleEdit(doc.id)}
+              >
+                <Link href={`/document/${doc.id}`}>
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-shrink-0">
+                        {getDocumentIcon(doc.category)}
+                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MoreHorizontal className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <Link href={`/document/${doc.id}`}>
+                            <DropdownMenuItem
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Edit3 className="w-4 h-4 mr-2" />
+                              Edit
+                            </DropdownMenuItem>
+                          </Link>
+                          <DropdownMenuItem
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Copy className="w-4 h-4 mr-2" />
+                            Duplicate
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Share2 className="w-4 h-4 mr-2" />
+                            Share
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Archive className="w-4 h-4 mr-2" />
+                            Archive
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
 
-              <div className="space-y-3">
-                <h3 className="font-semibold text-slate-900 text-sm leading-tight line-clamp-2">
-                  {doc.title}
-                </h3>
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-slate-900 text-sm leading-tight line-clamp-2">
+                        {doc.title}
+                      </h3>
 
-                <div className="flex items-center justify-between text-xs text-slate-500">
-                  <span>{doc.wordCount.toLocaleString()} words</span>
-                  <span>{doc.readingTime}</span>
-                </div>
+                      <div className="flex items-center justify-between text-xs text-slate-500">
+                        <span>{doc.content?.length} words</span>
+                        <span>{doc?.readTime || "5mins"}</span>
+                      </div>
 
-                <div className="flex items-center gap-1 text-xs text-slate-500">
-                  <Clock className="w-3 h-3" />
-                  <span>Edited {doc.lastEdited}</span>
-                </div>
+                      <div className="flex items-center gap-1 text-xs text-slate-500">
+                        <Clock className="w-3 h-3" />
+                        <span>
+                          Edited {moment(doc.publishedAt).format("LL")}
+                        </span>
+                      </div>
 
-                <div className="flex items-center justify-between pt-1">
-                  {getStatusBadge(doc.status)}
-                  <span className="text-xs text-slate-400 capitalize">
-                    {doc.type}
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-          </Link>
-        </Card>
-      ))}
+                      <div className="flex items-center justify-between pt-1">
+                        {getStatusBadge(doc.status)}
+                        <span className="text-xs text-slate-400 capitalize">
+                          {doc.category}
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Link>
+              </Card>
+            ))}
+        </>
+      )}
     </div>
   )
 }

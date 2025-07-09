@@ -21,7 +21,7 @@ import EnhancedContent from "@/components/content-reader/enhanced-content"
 import { useParams } from "next/navigation"
 import ConnectButton from "@/components/connect-wallet"
 import { useUsers } from "@/hooks/use-user"
-import { useDocuments } from "@/hooks/use-hooks"
+import { useDocuments } from "@/hooks/use-documents"
 
 // Mock data
 const mockContent = {

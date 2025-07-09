@@ -40,6 +40,8 @@ import {
 import { toast } from "sonner"
 import { supabase } from "@/utils/supabase"
 import { useRouter } from "next/navigation"
+import { useWallet } from "@/contexts/walletContext"
+import { useCreateDocument } from "@/hooks/use-documents"
 
 const documentTypes = [
   { value: "article", label: "Article", icon: BookOpen },
@@ -100,24 +102,28 @@ export default function AddDocumentDialog({
     },
   })
 
+  const { address } = useWallet()
+  const { mutateAsync, isPending } = useCreateDocument()
+
   const onSubmit = async (data: FormData) => {
     try {
-      const newDocument = {
-        ...data,
-        id: Date.now().toString(),
-        createdAt: new Date(),
+      const id = Date.now().toString()
+      const payload = {
+        id,
+        title: data.title,
+        content: "",
+        category: data.type,
+        readTime: "5 min",
+        views: "20k",
+        tokenSymbol: "PPen",
+        featured: false,
+        gradient: "blue-to-green",
+        tags: ["blockchain", "zora", "editor"],
+        author_wallet: address,
+        status: data.status,
       }
-      const { data: response, error } = await supabase
-        .from("documents")
-        .insert([{ ...data, author_email: localStorage.getItem("email") }])
-        .select()
-      if (error) {
-        throw new Error()
-      }
-      console.log(response)
 
-      // Call the callback if provided
-      onDocumentCreated?.(newDocument)
+      await mutateAsync(payload)
 
       toast.success("Document created", {
         description: `"${data.title}" has been created successfully.`,
@@ -126,10 +132,11 @@ export default function AddDocumentDialog({
       // Reset form and close dialog
       form.reset()
       setOpen(false)
-      router.push(`/document/${response[0]?.id}`)
-    } catch (error) {
+      router.push(`/document/${id}`)
+    } catch (error: any) {
       toast.error("Error", {
-        description: "Failed to create document. Please try again.",
+        description:
+          error.message || "Failed to create document. Please try again.",
       })
     }
   }

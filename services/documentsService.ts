@@ -1,8 +1,12 @@
 // src/services/documentService.ts
+
 import { Database } from "@tableland/sdk"
 import { Signer } from "ethers"
 
 const DOC_TABLE = process.env.NEXT_PUBLIC_DOCUMENTS_TABLE!
+if (!DOC_TABLE) {
+  throw new Error("Missing NEXT_PUBLIC_DOCUMENTS_TABLE env var")
+}
 
 export interface Collaborator {
   name: string
@@ -25,16 +29,17 @@ export interface DocumentMeta {
   featured: boolean
   gradient: string
   tags: string[]
+  status: "draft" | "published" | "shared" | "archived" | undefined
 }
 
-/** CREATE */
+/**
+ * CREATE
+ */
 export async function createDocument(
   input: Omit<
     DocumentMeta,
     "createdAt" | "publishedAt" | "author" | "collaborators"
-  > & {
-    author_wallet: string
-  },
+  > & { author_wallet: string },
   signer: Signer
 ) {
   if (!signer) throw new Error("Signer required")
@@ -44,8 +49,24 @@ export async function createDocument(
   await db
     .prepare(
       `INSERT INTO ${DOC_TABLE}
-        (id,title,content,category,publishedAt,readTime,views,tokenSymbol,createdAt,author_wallet,collaborators,featured,gradient,tags)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+        (
+          id,
+          title,
+          content,
+          category,
+          publishedAt,
+          readTime,
+          views,
+          tokenSymbol,
+          createdAt,
+          author_wallet,
+          collaborators,
+          featured,
+          gradient,
+          tags,
+          status
+        )
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
     )
     .bind(
       input.id,
@@ -61,16 +82,20 @@ export async function createDocument(
       JSON.stringify([]), // no collaborators initially
       input.featured ? 1 : 0,
       input.gradient,
-      JSON.stringify(input.tags)
+      JSON.stringify(input.tags),
+      input.status ?? "draft"
     )
     .run()
     .then((r) => r.meta.txn?.wait())
 }
 
-/** READ ALL */
+/**
+ * READ ALL
+ */
 export async function listDocuments(): Promise<DocumentMeta[]> {
   const db = new Database() // read-only
   const { results } = await db.prepare(`SELECT * FROM ${DOC_TABLE};`).all()
+  console.log(results)
 
   return results.map((r: any) => ({
     id: r.id,
@@ -87,10 +112,13 @@ export async function listDocuments(): Promise<DocumentMeta[]> {
     featured: Boolean(r.featured),
     gradient: r.gradient,
     tags: JSON.parse(r.tags),
+    status: r.status as DocumentMeta["status"],
   }))
 }
 
-/** READ ONE */
+/**
+ * READ ONE
+ */
 export async function getDocument(id: string): Promise<DocumentMeta | null> {
   const db = new Database()
   const { results } = await db
@@ -98,7 +126,7 @@ export async function getDocument(id: string): Promise<DocumentMeta | null> {
     .bind(id)
     .all()
 
-  if (!results.length) return null
+  if (results.length === 0) return null
   const r = results[0]
   return {
     id: r.id as any,
@@ -115,10 +143,13 @@ export async function getDocument(id: string): Promise<DocumentMeta | null> {
     featured: Boolean(r.featured),
     gradient: r.gradient as any,
     tags: JSON.parse(r.tags as any),
+    status: r.status as DocumentMeta["status"],
   }
 }
 
-/** UPDATE (author only) */
+/**
+ * UPDATE (author only)
+ */
 export async function updateDocument(
   id: string,
   updates: Partial<
@@ -157,7 +188,7 @@ export async function updateDocument(
       vals.push(v)
     }
   }
-  if (!sets.length) return
+  if (sets.length === 0) return
 
   await db
     .prepare(`UPDATE ${DOC_TABLE} SET ${sets.join(", ")} WHERE id = ?;`)
@@ -166,7 +197,9 @@ export async function updateDocument(
     .then((r) => r.meta.txn?.wait())
 }
 
-/** DELETE (author only) */
+/**
+ * DELETE (author only)
+ */
 export async function deleteDocument(id: string, signer: Signer) {
   if (!signer) throw new Error("Signer required")
   const db = new Database({ signer })
@@ -188,7 +221,9 @@ export async function deleteDocument(id: string, signer: Signer) {
     .then((r) => r.meta.txn?.wait())
 }
 
-/** INVITE (author only) */
+/**
+ * INVITE (author only)
+ */
 export async function inviteCollaborator(
   id: string,
   collaborator: Collaborator,

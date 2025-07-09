@@ -30,7 +30,8 @@ async function main() {
       collaborators TEXT,
       featured      INTEGER,
       gradient      TEXT,
-      tags          TEXT
+      tags          TEXT,
+      status        TEXT
     );
   `
   const { meta } = await db.prepare(stmt).run()

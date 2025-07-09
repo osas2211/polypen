@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import DocumentGrid from "@/components/document-grid"
 import AddDocumentDialog from "@/components/add-document-dialog"
+import ConnectWalletButton from "@/components/connect-wallet"
 
 const DashboardPage = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
@@ -27,22 +28,25 @@ const DashboardPage = () => {
     <div>
       <div className="!max-w-[1440px] !mx-auto">
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2">
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>All documents</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+          <div className="flex items-center gap-2 justify-between w-full">
+            <div className="flex items-center gap-2">
+              <Separator
+                orientation="vertical"
+                className="mr-2 data-[orientation=vertical]:h-4"
+              />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>All documents</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            <ConnectWalletButton />
           </div>
         </header>
         <div className="px-4">

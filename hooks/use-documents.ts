@@ -16,7 +16,7 @@ export function useDocuments() {
   return useQuery<DocumentMeta[]>({
     queryKey: ["documents"],
     queryFn: listDocuments,
-    staleTime: 1000 * 60, // 1 minute
+    // staleTime: 1000 * 60, // 1 minute
   })
 }
 
