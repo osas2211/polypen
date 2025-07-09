@@ -119,7 +119,7 @@ export default function AddDocumentDialog({
         featured: false,
         gradient: "blue-to-green",
         tags: ["blockchain", "zora", "editor"],
-        author_wallet: address,
+        author_wallet: address?.toLowerCase(),
         status: data.status,
       }
 

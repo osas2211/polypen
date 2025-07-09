@@ -174,20 +174,30 @@ export async function updateDocument(
   const user = await signer.getAddress()
 
   // fetch current record for auth & collaborators
-  const raw = await db
+  const { results } = await db
     .prepare(
       `SELECT author_wallet, collaborators FROM ${DOC_TABLE} WHERE id = ?;`
     )
     .bind(id)
     .all()
 
-  if (!raw.results.length || raw.results[0].author_wallet !== user) {
+  if (!results.length) {
+    throw new Error("Not found")
+  }
+
+  const storedAuthor = (results[0].author_wallet as string).toLowerCase()
+  const caller = user.toLowerCase()
+
+  console.log("📋 author_wallet from DB:", storedAuthor)
+  console.log("🔑 signer address:", caller)
+
+  if (storedAuthor !== caller) {
     throw new Error("Not authorized")
   }
 
+  // build SET clause…
   const sets: string[] = []
   const vals: any[] = []
-
   for (const [k, v] of Object.entries(updates)) {
     if (k === "collaborators" || k === "tags") {
       sets.push(`${k} = ?`)
@@ -200,7 +210,7 @@ export async function updateDocument(
       vals.push(v)
     }
   }
-  if (sets.length === 0) return
+  if (!sets.length) return
 
   await db
     .prepare(`UPDATE ${DOC_TABLE} SET ${sets.join(", ")} WHERE id = ?;`)

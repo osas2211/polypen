@@ -34,6 +34,9 @@ import CollaboratorPanel from "@/components/collaborator-panel"
 import CommentPanel from "@/components/comment-panel"
 import { toast } from "sonner"
 import { io } from "socket.io-client"
+import { useDocument, useUpdateDocument } from "@/hooks/use-documents"
+import { DocumentMeta } from "@/services/documentsService"
+import moment from "moment"
 
 const socket = io({ transports: ["websocket", "polling"] })
 
@@ -108,25 +111,38 @@ const mockCollaborators: Collaborator[] = [
 
 export default function DocumentEditor({ documentId }: { documentId: string }) {
   const router = useRouter()
+  const { data, isLoading } = useDocument(documentId)
+  const { mutateAsync, isPending } = useUpdateDocument(documentId)
 
-  const [document, setDocument] = useState<Document>(mockDocument)
+  const [document, setDocument] = useState<DocumentMeta>()
+
   const [collaborators, setCollaborators] =
     useState<Collaborator[]>(mockCollaborators)
-  const [docText, setDocText] = useState(document.content)
+  const [docText, setDocText] = useState(document?.content || "")
   const [isCollaboratorPanelOpen, setIsCollaboratorPanelOpen] = useState(false)
   const [isCommentPanelOpen, setIsCommentPanelOpen] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
+
+  useEffect(() => {
+    if (data) {
+      setDocument(data)
+      setDocText(data?.content)
+    }
+  }, [data])
 
   const handleSave = async () => {
-    setIsSaving(true)
-    // Simulate save
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setDocument((prev) => ({
-      ...prev,
+    const payload = {
+      title: document?.title,
+      category: document?.category,
+      collaborators: document?.collaborators,
       content: docText,
-      lastEdited: "Just now",
-    }))
-    setIsSaving(false)
+      featured: document?.featured,
+      gradient: document?.gradient,
+      readTime: document?.readTime,
+      status: document?.status,
+      tags: document?.tags,
+      tokenSymbol: document?.tokenSymbol,
+    }
+    await mutateAsync({ ...payload } as DocumentMeta)
     toast.success("Document saved", {
       description: "Your changes have been saved successfully.",
     })
@@ -172,6 +188,10 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
     }
   }, [])
 
+  if (isLoading || !data) {
+    return <p>Document is loading...</p>
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
@@ -192,17 +212,19 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
               <div className="flex items-center gap-3">
                 <FileText className="w-5 h-5 text-slate-600" />
                 <Input
-                  value={document.title}
+                  value={document?.title}
                   onChange={(e) =>
-                    setDocument((prev) => ({ ...prev, title: e.target.value }))
+                    setDocument((prev) =>
+                      prev ? { ...prev, title: e.target.value } : prev
+                    )
                   }
                   className="text-lg font-semibold border-none p-0 h-auto bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Badge
                   variant="secondary"
-                  className={getStatusColor(document.status)}
+                  className={getStatusColor(document?.status as any)}
                 >
-                  {document.status}
+                  {document?.status}
                 </Badge>
               </div>
             </div>
@@ -268,11 +290,11 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
 
               <Button
                 onClick={handleSave}
-                disabled={isSaving}
+                disabled={isPending}
                 className="bg-slate-900 hover:bg-slate-800"
               >
                 <Save className="w-4 h-4 mr-2" />
-                {isSaving ? "Saving..." : "Save"}
+                {isPending ? "Saving..." : "Save"}
               </Button>
 
               <DropdownMenu>
@@ -322,11 +344,13 @@ export default function DocumentEditor({ documentId }: { documentId: string }) {
             {/* Document Stats */}
             <div className="flex items-center justify-between text-sm text-slate-500 bg-white rounded-lg border border-slate-200 px-4 py-3">
               <div className="flex items-center gap-6">
-                <span>{document.wordCount.toLocaleString()} words</span>
-                <span>{document.readingTime}</span>
+                <span>{document?.content?.length} words</span>
+                <span>{"5 min"}</span>
                 <div className="flex items-center gap-1">
                   <Clock className="w-3 h-3" />
-                  <span>Last edited {document.lastEdited}</span>
+                  <span>
+                    Last edited {moment(document?.publishedAt).fromNow()}
+                  </span>
                 </div>
               </div>
               <span className="text-slate-400">Auto-saved</span>
