@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Coins, TrendingUp, Zap, Wallet } from "lucide-react"
+import { useCoinDetails } from "@/hooks/useZora"
 
 interface TradingInterfaceProps {
   tokenSymbol: string
@@ -18,6 +19,7 @@ export default function TradingInterface({
   balance,
   currentPrice,
 }: TradingInterfaceProps) {
+  // const {} = useCoinDetails()
   const [tradeType, setTradeType] = useState<"buy" | "sell">("buy")
   const [amount, setAmount] = useState("")
 
@@ -65,7 +67,7 @@ export default function TradingInterface({
                 </div>
                 <div className="flex items-center gap-1 text-green-400 text-sm">
                   <TrendingUp className="w-3 h-3" />
-                  <span>+12.5%</span>
+                  <span>+0.0%</span>
                 </div>
               </div>
             </div>

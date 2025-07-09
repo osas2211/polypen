@@ -139,22 +139,7 @@ export default function AddDocumentDialog({
         image:
           "https://magic.decentralized-content.com/ipfs/bafybeiclpeiscryptz7f6h3gztz6cptkamgxaf4bbhzzoo2juof5nj57ii",
       }
-      const payload = {
-        id,
-        title: data.title,
-        content: "",
-        category: data.type,
-        readTime: "5 min",
-        views: "20k",
-        tokenSymbol: data.tokenSymbol,
-        featured: false,
-        gradient: "blue-to-green",
-        tags: ["blockchain", "zora", "editor"],
-        author_wallet: address?.toLowerCase(),
-        status: data.status,
-      }
       const uri = await getMetadataUri(meta)
-      await mutateAsync(payload)
 
       const handleMint = async () => {
         if (!signer) {
@@ -169,6 +154,22 @@ export default function AddDocumentDialog({
         })
       }
       await handleMint()
+      // console.log(mutation)
+      const payload = {
+        id,
+        title: data.title,
+        content: "",
+        category: data.type,
+        readTime: "5 min",
+        views: "20k",
+        tokenSymbol: data.tokenSymbol,
+        featured: false,
+        gradient: "blue-to-green",
+        tags: ["blockchain", "zora", "editor"],
+        author_wallet: address?.toLowerCase(),
+        status: data.status,
+      }
+      await mutateAsync(payload)
 
       toast.success("Document created", {
         description: `"${data.title}" has been created successfully.`,
@@ -177,7 +178,7 @@ export default function AddDocumentDialog({
       // Reset form and close dialog
       form.reset()
       setOpen(false)
-      router.push(`/document/${id}`)
+      router.push(`/document/${payload.id}`)
     } catch (error: any) {
       toast.error("Error", {
         description:
