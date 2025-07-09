@@ -15,7 +15,23 @@ import {
 export function useDocuments() {
   return useQuery<DocumentMeta[]>({
     queryKey: ["documents"],
-    queryFn: listDocuments,
+    queryFn: async () => {
+      try {
+        console.log("[useDocuments] fetching…")
+        const docs = await listDocuments()
+        console.log("[useDocuments] got back:", docs)
+        if (!docs) {
+          throw new Error("No documents found")
+        }
+        return docs
+      } catch (error: any) {
+        console.log(error.message)
+        throw error instanceof Error
+          ? error
+          : new Error("Failed to fetch documents")
+      }
+    },
+
     // staleTime: 1000 * 60, // 1 minute
   })
 }

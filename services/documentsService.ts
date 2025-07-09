@@ -3,9 +3,22 @@
 import { Database } from "@tableland/sdk"
 import { Signer } from "ethers"
 
+// ensure your table name is set
 const DOC_TABLE = process.env.NEXT_PUBLIC_DOCUMENTS_TABLE!
 if (!DOC_TABLE) {
   throw new Error("Missing NEXT_PUBLIC_DOCUMENTS_TABLE env var")
+}
+
+/**
+ * Safely parse a JSON string into T, returning fallback on any error.
+ */
+function safeParse<T>(value: string | null | undefined, fallback: T): T {
+  if (!value) return fallback
+  try {
+    return JSON.parse(value) as T
+  } catch {
+    return fallback
+  }
 }
 
 export interface Collaborator {
@@ -95,7 +108,6 @@ export async function createDocument(
 export async function listDocuments(): Promise<DocumentMeta[]> {
   const db = new Database() // read-only
   const { results } = await db.prepare(`SELECT * FROM ${DOC_TABLE};`).all()
-  console.log(results)
 
   return results.map((r: any) => ({
     id: r.id,
@@ -108,11 +120,11 @@ export async function listDocuments(): Promise<DocumentMeta[]> {
     tokenSymbol: r.tokenSymbol,
     createdAt: r.createdAt,
     author: { wallet_address: r.author_wallet },
-    collaborators: JSON.parse(r.collaborators),
+    collaborators: safeParse<Collaborator[]>(r.collaborators, []),
     featured: Boolean(r.featured),
     gradient: r.gradient,
-    tags: JSON.parse(r.tags),
-    status: r.status as DocumentMeta["status"],
+    tags: safeParse<string[]>(r.tags, []),
+    status: (r.status as DocumentMeta["status"]) ?? "draft",
   }))
 }
 
@@ -139,11 +151,11 @@ export async function getDocument(id: string): Promise<DocumentMeta | null> {
     tokenSymbol: r.tokenSymbol as any,
     createdAt: r.createdAt as any,
     author: { wallet_address: r.author_wallet as any },
-    collaborators: JSON.parse(r.collaborators as any),
+    collaborators: safeParse<Collaborator[]>(r.collaborators as any, []),
     featured: Boolean(r.featured),
     gradient: r.gradient as any,
-    tags: JSON.parse(r.tags as any),
-    status: r.status as DocumentMeta["status"],
+    tags: safeParse<string[]>(r.tags as any, []),
+    status: (r.status as DocumentMeta["status"]) ?? "draft",
   }
 }
 
@@ -161,7 +173,7 @@ export async function updateDocument(
   const db = new Database({ signer })
   const user = await signer.getAddress()
 
-  // fetch author
+  // fetch current record for auth & collaborators
   const raw = await db
     .prepare(
       `SELECT author_wallet, collaborators FROM ${DOC_TABLE} WHERE id = ?;`
@@ -244,9 +256,10 @@ export async function inviteCollaborator(
     throw new Error("Not authorized")
   }
 
-  const collabs = JSON.parse(
-    raw.results[0].collaborators as any
-  ) as Collaborator[]
+  const collabs = safeParse<Collaborator[]>(
+    raw.results[0].collaborators as any,
+    []
+  )
   collabs.push(collaborator)
 
   await db
