@@ -19,6 +19,8 @@ import ContentTabs from "@/components/content-reader/content-tabs"
 import RoleSelector from "@/components/content-reader/role-selector"
 import EnhancedContent from "@/components/content-reader/enhanced-content"
 import { useParams } from "next/navigation"
+import ConnectButton from "@/components/connect-wallet"
+import { useUsers } from "@/hooks/use-user"
 
 // Mock data
 const mockContent = {
@@ -169,6 +171,8 @@ export default function ContentReaderPage() {
   const router = useRouter()
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [selectedRole, setSelectedRole] = useState("default")
+  const { data } = useUsers()
+  console.log(data)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
@@ -214,6 +218,7 @@ export default function ContentReaderPage() {
                 />
                 {isBookmarked ? "Saved" : "Save"}
               </Button>
+              <ConnectButton />
               <Button variant="ghost" size="sm" className="hover:bg-slate-100">
                 <MoreHorizontal className="w-4 h-4" />
               </Button>

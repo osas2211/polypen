@@ -27,7 +27,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "server.js"
+    "server.js",
+    "scripts/create-tableland.js",
+    "scripts/create-tableland.js",
+    "scripts/create-tableland.mts",
+    "scripts/create-tableland.js"
   ],
   "exclude": ["node_modules"]
 }
