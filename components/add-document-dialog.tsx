@@ -42,6 +42,9 @@ import { supabase } from "@/utils/supabase"
 import { useRouter } from "next/navigation"
 import { useWallet } from "@/contexts/walletContext"
 import { useCreateDocument } from "@/hooks/use-documents"
+import { useCreateCoin } from "@/hooks/useZora"
+import { createMetadataUri, DocumentMetadata } from "@/utils/metadata"
+import { useCreateCoinForDocument } from "@/hooks/useCreateCoin"
 
 const documentTypes = [
   { value: "article", label: "Article", icon: BookOpen },
@@ -62,6 +65,11 @@ const documentStatuses = [
 
 const formSchema = z.object({
   title: z
+    .string()
+    .min(1, { message: "Title is required" })
+    .min(3, { message: "Title must be at least 3 characters long" })
+    .max(100, { message: "Title must be less than 100 characters" }),
+  tokenSymbol: z
     .string()
     .min(1, { message: "Title is required" })
     .min(3, { message: "Title must be at least 3 characters long" })
@@ -87,6 +95,17 @@ interface AddDocumentDialogProps {
   ) => void
 }
 
+async function getMetadataUri(meta: object): Promise<string> {
+  const res = await fetch("/api/ipfs-pinata", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(meta),
+  })
+  const { uri, error } = await res.json()
+  if (error) throw new Error(error)
+  return uri
+}
+
 export default function AddDocumentDialog({
   open,
   setOpen,
@@ -99,15 +118,27 @@ export default function AddDocumentDialog({
       title: "",
       type: "article",
       status: "draft",
+      tokenSymbol: "",
     },
   })
 
-  const { address } = useWallet()
+  const { address, signer, connectWallet } = useWallet()
   const { mutateAsync, isPending } = useCreateDocument()
+  const mutation = useCreateCoinForDocument()
+  const { mutateAsync: createCoin } = useCreateCoin()
 
   const onSubmit = async (data: FormData) => {
     try {
       const id = Date.now().toString()
+      const meta: DocumentMetadata = {
+        name: data.title,
+        description: data.title,
+        author: address!,
+        createdAt: Date.now().toLocaleString(),
+        tags: ["blockchain", "zora", "editor"],
+        image:
+          "https://magic.decentralized-content.com/ipfs/bafybeiclpeiscryptz7f6h3gztz6cptkamgxaf4bbhzzoo2juof5nj57ii",
+      }
       const payload = {
         id,
         title: data.title,
@@ -115,15 +146,29 @@ export default function AddDocumentDialog({
         category: data.type,
         readTime: "5 min",
         views: "20k",
-        tokenSymbol: "PPen",
+        tokenSymbol: data.tokenSymbol,
         featured: false,
         gradient: "blue-to-green",
         tags: ["blockchain", "zora", "editor"],
         author_wallet: address?.toLowerCase(),
         status: data.status,
       }
-
+      const uri = await getMetadataUri(meta)
       await mutateAsync(payload)
+
+      const handleMint = async () => {
+        if (!signer) {
+          await connectWallet()
+          return
+        }
+        mutation.mutate({
+          name: data.title,
+          symbol: data.tokenSymbol,
+          uri: uri,
+          payoutAddr: address!,
+        })
+      }
+      await handleMint()
 
       toast.success("Document created", {
         description: `"${data.title}" has been created successfully.`,
@@ -173,6 +218,20 @@ export default function AddDocumentDialog({
                   <FormLabel>Document Title</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter document title..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="tokenSymbol"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Token Symbol</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g ETH,ZORA" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

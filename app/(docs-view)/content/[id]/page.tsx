@@ -20,8 +20,7 @@ import RoleSelector from "@/components/content-reader/role-selector"
 import EnhancedContent from "@/components/content-reader/enhanced-content"
 import { useParams } from "next/navigation"
 import ConnectButton from "@/components/connect-wallet"
-import { useUsers } from "@/hooks/use-user"
-import { useDocuments } from "@/hooks/use-documents"
+import { useDocument, useDocuments } from "@/hooks/use-documents"
 
 // Mock data
 const mockContent = {
@@ -172,10 +171,11 @@ export default function ContentReaderPage() {
   const router = useRouter()
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [selectedRole, setSelectedRole] = useState("default")
-  const { data } = useUsers()
-  const { data: docs } = useDocuments()
-  console.log(data, docs)
-
+  const { id } = useParams()
+  const { data, isLoading } = useDocument(id as string)
+  if (isLoading) {
+    return <></>
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
       {/* Header */}
@@ -237,9 +237,7 @@ export default function ContentReaderPage() {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <Avatar className="w-14 h-14 ring-4 ring-white shadow-lg">
-                  <AvatarImage
-                    src={mockContent.author.avatar || "/placeholder.svg"}
-                  />
+                  <AvatarImage src={"https://avatar.vercel.sh/maya"} />
                   <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white font-semibold">
                     {mockContent.author.name
                       .split(" ")
@@ -250,11 +248,9 @@ export default function ContentReaderPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-900 text-lg">
-                      {mockContent.author.name}
+                      Maya Patel
                     </span>
-                    <span className="text-slate-500">
-                      @{mockContent.author.username}
-                    </span>
+                    <span className="text-slate-500"></span>
                   </div>
                   <div className="flex items-center gap-4 text-sm text-slate-500">
                     <span>{mockContent.publishedAt}</span>
@@ -286,7 +282,7 @@ export default function ContentReaderPage() {
                   </Badge>
                 </div>
                 <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-                  {mockContent.title}
+                  {data?.title}
                 </h1>
               </div>
             </div>
@@ -301,10 +297,7 @@ export default function ContentReaderPage() {
             />
 
             {/* Enhanced Content */}
-            <EnhancedContent
-              content={mockContent.content}
-              role={selectedRole}
-            />
+            <EnhancedContent content={data?.content!} role={selectedRole} />
           </div>
 
           {/* Sidebar - Static Components */}

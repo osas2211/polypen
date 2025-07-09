@@ -18,6 +18,7 @@ import {
   Feather,
 } from "lucide-react"
 import Link from "next/link"
+import { useDocuments } from "@/hooks/use-documents"
 
 interface Doc {
   id: string
@@ -260,6 +261,15 @@ export default function DocsCatalog() {
 
   const featuredDocs = filteredDocs.filter((doc) => doc.featured)
   const regularDocs = filteredDocs.filter((doc) => !doc.featured)
+  const { data, isLoading } = useDocuments()
+
+  const formatAddress = (addr: string) => {
+    return `${addr.substring(0, 6)}...${addr.slice(-4)}`
+  }
+
+  if (isLoading) {
+    return <>Loading docs</>
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
@@ -425,7 +435,7 @@ export default function DocsCatalog() {
         )}
 
         {/* Regular Articles */}
-        {regularDocs.length > 0 && (
+        {data?.length! > 0 && (
           <div>
             <div className="flex items-center gap-3 mb-8">
               <BookOpen className="w-6 h-6 text-slate-600" />
@@ -433,7 +443,7 @@ export default function DocsCatalog() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-              {regularDocs.map((doc) => (
+              {data?.map((doc, index) => (
                 <Link href={`/content/${doc.id}`} key={doc.id}>
                   <Card
                     className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 cursor-pointer"
@@ -441,14 +451,14 @@ export default function DocsCatalog() {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     <div
-                      className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${doc.gradient}`}
+                      className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${regularDocs[index].gradient}`}
                     />
 
                     <CardContent className="p-6 space-y-4">
                       <div className="flex items-center justify-between">
                         <Badge
                           variant="outline"
-                          className="bg-white/50 flex items-center gap-1"
+                          className="bg-white/50 flex items-center gap-1 capitalize"
                         >
                           {getCategoryIcon(doc.category)}
                           {doc.category}
@@ -471,25 +481,28 @@ export default function DocsCatalog() {
                       </h3>
 
                       <p className="text-slate-600 leading-relaxed text-sm">
-                        {doc.excerpt}
+                        {regularDocs[index].excerpt}
                       </p>
 
                       <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                         <div className="flex items-center gap-2">
                           <Avatar className="w-8 h-8">
                             <AvatarImage
-                              src={doc.author.avatar || "/placeholder.svg"}
+                              src={
+                                regularDocs[index].author.avatar ||
+                                "/placeholder.svg"
+                              }
                             />
                             <AvatarFallback className="text-xs">
-                              {doc.author.name
+                              {formatAddress(doc.author.wallet_address)
                                 .split(" ")
                                 .map((n) => n[0])
                                 .join("")}
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <p className="font-medium text-sm text-slate-900">
-                              {doc.author.name}
+                            <p className="font-medium text-sm text-slate-900 truncate">
+                              {formatAddress(doc.author.wallet_address)}
                             </p>
                             <p className="text-slate-500 text-xs">
                               {doc.publishedAt}
