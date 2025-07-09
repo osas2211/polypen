@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { fetchUserByWalletTableland } from "@/services/tablelandservice"
 
 export async function GET(
-  _req: NextRequest,
+  req: Request,
   { params }: { params: { wallet: string } }
 ) {
   const { wallet } = params
+
   try {
     const user = await fetchUserByWalletTableland(wallet)
     if (!user) {
