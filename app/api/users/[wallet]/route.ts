@@ -1,11 +1,9 @@
+// app/api/users/[wallet]/route.ts
 import { NextResponse } from "next/server"
 import { fetchUserByWalletTableland } from "@/services/tablelandservice"
 
-export async function GET(
-  req: Request,
-  { params }: { params: { wallet: string } }
-) {
-  const { wallet } = params
+export async function GET(req: Request, body: any) {
+  const { wallet } = body.params as { wallet: string } // you can still cast if you like
 
   try {
     const user = await fetchUserByWalletTableland(wallet)
