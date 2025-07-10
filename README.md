@@ -2,7 +2,7 @@
 
 **Live demo:** https://polypen.vercel.app/
 
-Polypen is a collaborative, AI-powered document editor that translates and reframes your text in real time for different audiences—and then mints each finished document as its own “coin” on Zora’s Base Sepolia testnet. I store user and document metadata in Tableland, pin document metadata JSON to IPFS via Pinata, and surface on-chain token analytics via the Zora Coins SDK and React-Query hooks. All blockchain writes happen in the user’s browser—no server-side signer required.
+Polypen is a collaborative, AI-powered document editor that translates and reframes your text in real time for different audiences, and then mints each finished document as its own “coin” on Zora’s Base Sepolia testnet. I store user and document metadata in Tableland, pin document metadata JSON to IPFS via Pinata, and surface on-chain token analytics via the Zora Coins SDK and React-Query hooks. All blockchain writes happen in the user’s browser, no server-side signer required.
 
 ---
 
@@ -24,7 +24,7 @@ Polypen is a collaborative, AI-powered document editor that translates and refra
   In-browser MetaMask integration deploys a bespoke ERC-20 token per document on Base Sepolia. The deployed `coinAddress` doubles as the document ID and its trading handle (`https://testnet.zora.co/coin/bsep:<coinAddress>`).
 
 - **Tableland Storage**  
-  User profiles and document records—including the Zora `coinAddress` as each document’s primary key—live in decentralized Tableland tables.
+  User profiles and document records, including the Zora `coinAddress` as each document’s primary key, live in decentralized Tableland tables.
 
 - **Live On-chain Analytics**  
   Supply, market cap, volume, top gainers, and holder lists are fetched via Zora’s GraphQL APIs and delivered through React-Query hooks (`useCoinDetails`, `useCoinHolders`, `useTopGainers`, `useTopVolume`).
