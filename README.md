@@ -2,7 +2,7 @@
 
 **Live demo:** https://polypen.vercel.app/
 
-Polypen is a collaborative, AI-powered document editor that translates and reframes your text in real time for different audiences—and then mints each finished document as its own ERC-20 “coin” on Zora’s Base Sepolia testnet. We store user and document metadata in Tableland, pin document metadata JSON to IPFS via Pinata, and surface on-chain token analytics via the Zora Coins SDK and React-Query hooks. All blockchain writes happen in the user’s browser—no server-side signer required.
+Polypen is a collaborative, AI-powered document editor that translates and reframes your text in real time for different audiences—and then mints each finished document as its own “coin” on Zora’s Base Sepolia testnet. I store user and document metadata in Tableland, pin document metadata JSON to IPFS via Pinata, and surface on-chain token analytics via the Zora Coins SDK and React-Query hooks. All blockchain writes happen in the user’s browser—no server-side signer required.
 
 ---
 
@@ -18,7 +18,7 @@ Polypen is a collaborative, AI-powered document editor that translates and refra
   Multiple users can edit the same document; only the author can invite collaborators or delete the document.
 
 - **IPFS-backed Metadata**  
-  We pin document metadata (title, excerpt, author, timestamp, tags) to IPFS via Pinata and reference it with an `ipfs://` URI.
+  I pin document metadata (title, excerpt, author, timestamp, tags) to IPFS via Pinata and reference it with an `ipfs://` URI.
 
 - **Zora Coin Minting**  
   In-browser MetaMask integration deploys a bespoke ERC-20 token per document on Base Sepolia. The deployed `coinAddress` doubles as the document ID and its trading handle (`https://testnet.zora.co/coin/bsep:<coinAddress>`).
