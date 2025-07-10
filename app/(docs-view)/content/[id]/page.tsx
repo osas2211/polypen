@@ -304,7 +304,7 @@ export default function ContentReaderPage() {
           <div className="space-y-6">
             {/* Trading Interface - Now static */}
             <TradingInterface
-              tokenSymbol={mockContent.tokenSymbol}
+              tokenSymbol={data?.tokenSymbol!}
               balance={0}
               currentPrice={0.000111}
             />

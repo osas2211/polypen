@@ -41,15 +41,15 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center md:h-screen">
           <div className="md:py-[4rem] py-2">
             <p className="px-4 md:px-4 py-2 bg-gray-100 inline-block rounded-full font-medium text-lime-600">
-              #CustomHack
+              #ZoraCoinathon
             </p>
             <h3 className="md:text-9xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-black to-lime-500">
               PolyPen
             </h3>
             <div className="md:mt-[5rem] md:mb-[2.5rem] md:max-w-[70%]">
               <p className="text-2xl mb-3 md:mb-3 font-medium">
-                Real-Time Multilingual Collaborative Writing that translats both
-                language and intent.
+                Real-Time Multilingual Collaborative Writing tool that translats
+                both language and intent, and tokenize every document.
               </p>
               <p className="text-gray-500">
                 Whether a developer is co-writing with a product manager or a
@@ -60,17 +60,18 @@ export default function Home() {
             </div>
 
             <div className="flex md:flex-row flex-col gap-4 max-w-[550px]">
-              <Link href={"/onboarding"} className="w-full">
+              <Link href={"/dashboard"} className="w-full">
                 <ShimmerButton className="rounded-full w-full h-[50px]">
-                  Get Started
+                  Launch app
                 </ShimmerButton>
               </Link>
-              <ShinyButton
+              {/* <ShinyButton
                 className="rounded-full w-full h-[50px]"
                 onClick={() => setIsLoginOpen(true)}
               >
-                Login
-              </ShinyButton>
+                Launch app
+              </ShinyButton> */}
+              <div className="w-full"></div>
             </div>
           </div>
         </div>

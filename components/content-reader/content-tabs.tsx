@@ -43,7 +43,7 @@ export default function ContentTabs({
           {/* <Users className="w-4 h-4" /> */}
           Holders
           <span className="ml-1 text-xs bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded-full">
-            {totalHolders}
+            {0}
           </span>
         </TabsTrigger>
         <TabsTrigger value="activity" className="flex items-center gap-2">
@@ -82,11 +82,11 @@ export default function ContentTabs({
       </TabsContent>
 
       <TabsContent value="holders" className="mt-6">
-        <TokenHolders holders={holders} totalHolders={totalHolders} />
+        <TokenHolders holders={[]} totalHolders={totalHolders} />
       </TabsContent>
 
       <TabsContent value="activity" className="mt-6">
-        <TradingActivity activities={activities} />
+        <TradingActivity activities={[]} />
       </TabsContent>
 
       <TabsContent value="details" className="mt-6">
